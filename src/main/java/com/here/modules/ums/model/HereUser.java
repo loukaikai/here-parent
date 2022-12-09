@@ -29,6 +29,8 @@ public class HereUser implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    private String openId;
+
     private String hereCode;
 
     @ApiModelProperty("微信绑定的手机号")

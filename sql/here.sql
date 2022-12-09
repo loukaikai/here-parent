@@ -76,6 +76,8 @@ create table here_user
     my_code          varchar(50) null comment '我的邀请码',
     nameplate_flag   int         null comment '铭牌状态 0未点亮 1点亮',
     user_status      int         null comment '  停用 启用',
+    union_id         varchar(255) null comment '小程序unionid',
+    open_id          varchar(255) null comment '小程序openid',
     create_time      datetime    null,
     update_time      datetime    null
 )
