@@ -1,4 +1,4 @@
-# mall-tiny
+# here-parent
 
 <p>
     <a href="#公众号"><img src="http://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/badge/%E5%85%AC%E4%BC%97%E5%8F%B7-macrozheng-blue.svg" alt="公众号"></a>
@@ -9,11 +9,11 @@
 
 ## 简介
 
-mall-tiny是一款基于SpringBoot+MyBatis-Plus的快速开发脚手架，拥有完整的权限管理功能，可对接Vue前端，开箱即用。
+here-parent是一款基于SpringBoot+MyBatis-Plus的快速开发脚手架，拥有完整的权限管理功能，可对接Vue前端，开箱即用。
 
 ## 项目演示
 
-mall-tiny项目可无缝对接`mall-admin-web`前端项目，秒变权限管理系统。前端项目地址：https://github.com/macrozheng/mall-admin-web
+here-parent项目可无缝对接`mall-admin-web`前端项目，秒变权限管理系统。前端项目地址：https://github.com/macrozheng/mall-admin-web
 
 ![](http://img.macrozheng.com/mall/project/mall_tiny_start_09.png)
 
@@ -40,7 +40,7 @@ mall-tiny项目可无缝对接`mall-admin-web`前端项目，秒变权限管理�
 
 - 化繁为简，仅保留了权限管理功能相关的9张表，方便自由定制；
 
-- 数据库源文件地址：https://github.com/macrozheng/mall-tiny/blob/master/sql/mall_tiny.sql
+- 数据库源文件地址：https://github.com/macrozheng/here-parent/blob/master/sql/mall_tiny.sql
 
 ## 使用流程
 
@@ -273,18 +273,18 @@ public interface UmsMenuMapper extends BaseMapper<UmsMenu> {
 
 ### 项目部署
 
-mall-tiny已经集成了Docker插件，可以打包成Docker镜像来部署，具体参考：[使用Maven插件为SpringBoot应用构建Docker镜像](https://www.macrozheng.com/project/maven_docker_fabric8.html)
+here-parent已经集成了Docker插件，可以打包成Docker镜像来部署，具体参考：[使用Maven插件为SpringBoot应用构建Docker镜像](https://www.macrozheng.com/project/maven_docker_fabric8.html)
 
 安装好MySQL和Redis服务后，直接使用如下命令运行即可。
 
 ```bash
-docker run -p 8080:8080 --name mall-tiny \
+docker run -p 8080:8080 --name here-parent \
 --link mysql:db \
 --link redis:redis \
 -e 'spring.profiles.active'=prod \
 -v /etc/localtime:/etc/localtime \
--v /mydata/app/mall-tiny/logs:/var/logs \
--d mall-tiny/mall-tiny:1.0.0-SNAPSHOT
+-v /mydata/app/here-parent/logs:/var/logs \
+-d here-parent/here-parent:1.0.0-SNAPSHOT
 ```
 
 ### 其他说明
@@ -354,16 +354,4 @@ public class UmsAdminController {
 }
 ```
 
-## 公众号
-
-学习不走弯路，关注公众号「**macrozheng**」，回复「**学习路线**」，获取mall项目专属学习路线！
-
-加微信群交流，公众号后台回复「**加群**」即可。
-
-![公众号图片](http://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/banner/qrcode_for_macrozheng_258.jpg)
-
-## 许可证
-
-[Apache License 2.0](https://github.com/macrozheng/mall-tiny/blob/master/LICENSE)
-
-Copyright (c) 2018-2022 macrozheng
+Copyright (c) 2018-2022 loukaikai
