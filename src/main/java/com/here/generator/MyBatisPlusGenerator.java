@@ -1,4 +1,4 @@
-package com.macro.mall.tiny.generator;
+package com.here.generator;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.setting.dialect.Props;

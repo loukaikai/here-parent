@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.here.modules.ums.mapper.HereNameplatePowerMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.here.modules.ums.model.HereNameplatePower">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="power_user_id" property="powerUserId" />
+        <result column="power_user_heads" property="powerUserHeads" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+</mapper>

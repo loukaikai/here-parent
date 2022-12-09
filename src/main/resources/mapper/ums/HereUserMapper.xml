@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.here.modules.ums.mapper.HereUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.here.modules.ums.model.HereUser">
+        <id column="id" property="id" />
+        <result column="here_code" property="hereCode" />
+        <result column="phone" property="phone" />
+        <result column="wechar_name" property="wecharName" />
+        <result column="wechat_no" property="wechatNo" />
+        <result column="wechar_heads_url" property="wecharHeadsUrl" />
+        <result column="invitation_id" property="invitationId" />
+        <result column="Invitation_code" property="invitationCode" />
+        <result column="my_code" property="myCode" />
+        <result column="nameplate_flag" property="nameplateFlag" />
+        <result column="user_status" property="userStatus" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+</mapper>
