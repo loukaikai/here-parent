@@ -12,7 +12,6 @@
 
     <modules>
         <module>here-common</module>
-        <module>here-admin</module>
     </modules>
 
     <properties>
