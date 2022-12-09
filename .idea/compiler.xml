@@ -7,12 +7,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="here-common" />
         <module name="mall-tiny" />
+        <module name="here-admin" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="here-admin" options="-parameters" />
+      <module name="here-common" options="-parameters" />
+      <module name="here-parent" options="-parameters" />
       <module name="mall-tiny" options="-parameters" />
     </option>
   </component>

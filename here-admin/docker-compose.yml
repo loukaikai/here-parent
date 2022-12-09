@@ -1,0 +1,26 @@
+version: '3'
+services:
+  redis:
+    image: redis:5
+    container_name: redis-tiny
+    command: redis-server --appendonly yes
+    volumes:
+      - /mydata/redis-tiny/data:/data #数据文件挂载
+    ports:
+      - 6379:6379
+  mall-tiny:
+    image: here-parent/here-parent:1.0.0-SNAPSHOT
+    container_name: here-parent
+    links:
+      - redis:redis
+    depends_on:
+      - redis
+    ports:
+      - 8080:8080
+    environment:
+      - 'spring.profiles.active=prod'
+      - 'spring.datasource.url=jdbc:mysql://192.168.3.105:3306/mall_tiny?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false'
+      - 'spring.redis.host=redis'
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - /mydata/app/here-parent/logs:/var/logs
