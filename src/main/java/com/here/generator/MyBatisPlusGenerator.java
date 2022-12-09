@@ -54,7 +54,7 @@ public class MyBatisPlusGenerator {
      */
     private static GlobalConfig initGlobalConfig(String projectPath) {
         return new GlobalConfig.Builder()
-                .outputDir(projectPath + "/src/main/java")
+                .outputDir(projectPath + "/src/)
                 .author("macro")
                 .disableOpenDir()
                 .enableSwagger()
