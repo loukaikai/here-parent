@@ -8,7 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="here-common" />
-        <module name="mall-tiny" />
+        <module name="here-web" />
         <module name="here-admin" />
       </profile>
     </annotationProcessing>
@@ -18,7 +18,8 @@
       <module name="here-admin" options="-parameters" />
       <module name="here-common" options="-parameters" />
       <module name="here-parent" options="-parameters" />
-      <module name="mall-tiny" options="-parameters" />
+      <module name="here-web" options="-parameters" />
+      <module name="mall-tiny" options="" />
     </option>
   </component>
 </project>

@@ -1,7 +1,7 @@
 package com.here.domain;
 
-import com.here.modules.ums.model.UmsAdmin;
-import com.here.modules.ums.model.UmsResource;
+import com.here.modules.model.UmsAdmin;
+import com.here.modules.model.UmsResource;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

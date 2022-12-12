@@ -1,6 +1,6 @@
 package com.here.security.component;
 
-import com.here.security.util.JwtTokenUtil;
+import com.here.common.utils.JwtTokenUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
