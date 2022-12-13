@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan({"com.here.modules.mapper"})
+@MapperScan({"com.here.modules.mapper","com.here.common.mapper"})
 public class MyBatisConfig {
 
     @Bean
