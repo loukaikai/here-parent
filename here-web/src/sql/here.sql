@@ -93,3 +93,45 @@ create table here_user_badge
 )
     comment '用户徽章关联表';
 
+CREATE TABLE `here_orders` (
+                               `id` int(11) NOT NULL AUTO_INCREMENT,
+                               `order_no` varchar(50) DEFAULT NULL COMMENT '订单号',
+                               `user_id` int(11) DEFAULT NULL,
+                               `user_code` varchar(255) DEFAULT NULL COMMENT '用户code',
+                               `goods_id` int(11) DEFAULT NULL,
+                               `goods_title` varchar(255) DEFAULT NULL COMMENT '商品标题 商品名',
+                               `goods_detail_id` int(11) DEFAULT NULL,
+                               `goods_specifications` varchar(255) DEFAULT NULL COMMENT '规格',
+                               `address_id` int(11) DEFAULT NULL,
+                               `buy_count` int(11) DEFAULT NULL COMMENT '购买数量',
+                               `unit_price` decimal(10,2) DEFAULT NULL COMMENT '单价',
+                               `sum_price` decimal(10,2) DEFAULT NULL COMMENT '总价',
+                               `freight_price` decimal(10,2) DEFAULT NULL COMMENT '运费',
+                               `discount_amount` decimal(10,2) DEFAULT NULL COMMENT '优惠金额',
+                               `actual_payment` decimal(10,2) DEFAULT NULL COMMENT '实付款',
+                               `status` int(11) DEFAULT NULL COMMENT '订单状态 0待付款 1待发货 2运送中 3待收货 4已送达待确认 5交易成功 99退款中 100退款成功',
+                               `create_time` datetime DEFAULT NULL,
+                               `payment_time` datetime DEFAULT NULL COMMENT '付款时间',
+                               `delivery_time` datetime DEFAULT NULL COMMENT '发货时间',
+                               `update_time` datetime DEFAULT NULL,
+                               PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment '订单表';
+
+CREATE TABLE `here_user_address` (
+                                     `id` int(11) NOT NULL AUTO_INCREMENT,
+                                     `user_id` int(11) DEFAULT NULL,
+                                     `consignee_name` varchar(50) DEFAULT NULL COMMENT '收货人',
+                                     `consignee_phone` int(11) DEFAULT NULL,
+                                     `province` varchar(10) DEFAULT NULL,
+                                     `city` varchar(10) DEFAULT NULL,
+                                     `area` varchar(10) DEFAULT NULL,
+                                     `street` varchar(100) DEFAULT NULL,
+                                     `address` varchar(255) DEFAULT NULL,
+                                     `default` int(11) DEFAULT NULL COMMENT '1默认 0否',
+                                     `create_time` datetime DEFAULT NULL,
+                                     `update_time` datetime DEFAULT NULL,
+                                     PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment '用户地址表';
+
+
+

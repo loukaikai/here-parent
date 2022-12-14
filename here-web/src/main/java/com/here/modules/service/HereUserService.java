@@ -14,4 +14,7 @@ import org.springframework.stereotype.Service;
  */
 public interface HereUserService extends IService<HereUser> {
 
+    Object getUser();
+
+    Boolean writeCode(String code);
 }
