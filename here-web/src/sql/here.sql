@@ -93,6 +93,41 @@ create table here_user_badge
 )
     comment '用户徽章关联表';
 
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for sys_log 系统操作日志
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_log`;
+CREATE TABLE `sys_log` (
+                           `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+                           `module_name` varchar(256) DEFAULT NULL COMMENT '模块名称',
+                           `browser_name` varchar(1024) DEFAULT NULL COMMENT '浏览器名称',
+                           `os_name` varchar(256) DEFAULT NULL COMMENT '操作系统名称',
+                           `ip_addr` varchar(256) DEFAULT NULL COMMENT '请求ip',
+                           `app_name` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '服务名称',
+                           `class_name` varchar(1024) DEFAULT NULL COMMENT '类名',
+                           `method_name` varchar(512) DEFAULT NULL COMMENT '方法',
+                           `request_url` varchar(1024) DEFAULT NULL COMMENT '请求url',
+                           `request_method` varchar(255) DEFAULT NULL COMMENT '请求方式，POST、GET',
+                           `request_param` text COMMENT '请求参数',
+                           `result_text` text CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT '响应参数',
+                           `status` tinyint(1) DEFAULT NULL COMMENT '接口状态（0成功 1失败）',
+                           `error_text` text COMMENT '错误信息',
+                           `take_up_time` varchar(64) DEFAULT NULL COMMENT '耗时',
+                           `edit_table_id` bigint(20) DEFAULT NULL COMMENT '编辑的表主键，只有修改时才有值',
+                           `edit_table_name` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '编辑的表名称，只有修改时才有值',
+                           `create_time` datetime DEFAULT NULL COMMENT '操作时间',
+                           `create_user_id` bigint(20) DEFAULT NULL COMMENT '创建人id',
+                           `create_phone_number` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '创建人手机号',
+                           `create_user_name` varchar(64) DEFAULT NULL COMMENT '创建人姓名',
+                           PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='系统操作日志';
+
+SET FOREIGN_KEY_CHECKS = 1;
+
 CREATE TABLE `here_orders` (
                                `id` int(11) NOT NULL AUTO_INCREMENT,
                                `order_no` varchar(50) DEFAULT NULL COMMENT '订单号',
