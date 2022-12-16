@@ -93,6 +93,41 @@ create table here_user_badge
 )
     comment '用户徽章关联表';
 
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for sys_log 系统操作日志
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_log`;
+CREATE TABLE `sys_log` (
+                           `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+                           `module_name` varchar(256) DEFAULT NULL COMMENT '模块名称',
+                           `browser_name` varchar(1024) DEFAULT NULL COMMENT '浏览器名称',
+                           `os_name` varchar(256) DEFAULT NULL COMMENT '操作系统名称',
+                           `ip_addr` varchar(256) DEFAULT NULL COMMENT '请求ip',
+                           `app_name` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '服务名称',
+                           `class_name` varchar(1024) DEFAULT NULL COMMENT '类名',
+                           `method_name` varchar(512) DEFAULT NULL COMMENT '方法',
+                           `request_url` varchar(1024) DEFAULT NULL COMMENT '请求url',
+                           `request_method` varchar(255) DEFAULT NULL COMMENT '请求方式，POST、GET',
+                           `request_param` text COMMENT '请求参数',
+                           `result_text` text CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT '响应参数',
+                           `status` tinyint(1) DEFAULT NULL COMMENT '接口状态（0成功 1失败）',
+                           `error_text` text COMMENT '错误信息',
+                           `take_up_time` varchar(64) DEFAULT NULL COMMENT '耗时',
+                           `edit_table_id` bigint(20) DEFAULT NULL COMMENT '编辑的表主键，只有修改时才有值',
+                           `edit_table_name` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '编辑的表名称，只有修改时才有值',
+                           `create_time` datetime DEFAULT NULL COMMENT '操作时间',
+                           `create_user_id` bigint(20) DEFAULT NULL COMMENT '创建人id',
+                           `create_phone_number` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '创建人手机号',
+                           `create_user_name` varchar(64) DEFAULT NULL COMMENT '创建人姓名',
+                           PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='系统操作日志';
+
+SET FOREIGN_KEY_CHECKS = 1;
+
 CREATE TABLE `here_orders` (
                                `id` int(11) NOT NULL AUTO_INCREMENT,
                                `order_no` varchar(50) DEFAULT NULL COMMENT '订单号',
@@ -132,6 +167,90 @@ CREATE TABLE `here_user_address` (
                                      `update_time` datetime DEFAULT NULL,
                                      PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment '用户地址表';
+
+DROP TABLE IF EXISTS award_rule;
+DROP TABLE IF EXISTS award_source_pms;
+
+DROP TABLE IF EXISTS award_sub_type_pms;
+DROP TABLE IF EXISTS award_type_pms;
+DROP TABLE IF EXISTS award_usr_detail;
+DROP TABLE IF EXISTS pms_award_rule;
+CREATE TABLE pms_award_rule(
+                               id INT(10) NOT NULL AUTO_INCREMENT  COMMENT '主键ID' ,
+                               award_rule VARCHAR(500) NOT NULL   COMMENT '奖励规则' ,
+                               status VARCHAR(2) NOT NULL   COMMENT '标识 0-生效；1-失效。统一时间一个平台只有一个生效' ,
+                               platform_flag VARCHAR(2)    COMMENT '平台标识 1-微信小程序；2-抖音' ,
+                               CREATED_BY int (10)    COMMENT '创建人' ,
+                               CREATED_TIME DATETIME    COMMENT '创建时间' ,
+                               UPDATED_BY int (10)    COMMENT '更新人' ,
+                               UPDATED_TIME DATETIME    COMMENT '更新时间' ,
+                               PRIMARY KEY (id)
+)  COMMENT = '奖励规则设置表';
+
+DROP TABLE IF EXISTS pms_award_source;
+CREATE TABLE pms_award_source(
+                                 id int(10) NOT NULL AUTO_INCREMENT  COMMENT '主键id' ,
+                                 award_source_type VARCHAR(2) NOT NULL   COMMENT '奖励类型 1-宝箱；2-邀请奖励' ,
+                                 award_source_name VARCHAR(100)    COMMENT '奖励类型名称' ,
+                                 award_rule_id VARCHAR(255)    COMMENT '奖励规则id' ,
+                                 status VARCHAR(32) NOT NULL   COMMENT '状态 0-启用 2-停用 3-删除' ,
+                                 start_time DATETIME    COMMENT '开始时间' ,
+                                 end_time DATETIME    COMMENT '结束时间' ,
+                                 CREATED_BY int (10)    COMMENT '创建人' ,
+                                 CREATED_TIME DATETIME    COMMENT '创建时间' ,
+                                 UPDATED_BY int (10)    COMMENT '更新人' ,
+                                 UPDATED_TIME DATETIME    COMMENT '更新时间' ,
+                                 PRIMARY KEY (id)
+)  COMMENT = '奖励来源配置';
+
+DROP TABLE IF EXISTS pms_award_sub_type;
+CREATE TABLE pms_award_sub_type(
+                                   id int(10) NOT NULL AUTO_INCREMENT  COMMENT '主键id' ,
+                                   award_type_id VARCHAR(2) NOT NULL   COMMENT '奖励类型id' ,
+                                   award_subtype_type_name VARCHAR(100)    COMMENT '奖励子类名称' ,
+                                   award_virtual_id int(10)    COMMENT '虚拟奖励id' ,
+                                   status VARCHAR(32) NOT NULL   COMMENT '状态 0-启用 2-停用 3-删除' ,
+                                   effctive_days int(10)    COMMENT '有效时间（-1为永远不过期）' ,
+                                   CREATED_BY VARCHAR(32)    COMMENT '创建人' ,
+                                   CREATED_TIME DATETIME    COMMENT '创建时间' ,
+                                   UPDATED_BY VARCHAR(32)    COMMENT '更新人' ,
+                                   UPDATED_TIME DATETIME    COMMENT '更新时间' ,
+                                   PRIMARY KEY (id)
+)  COMMENT = '奖励子类型（具体的奖励）';
+
+DROP TABLE IF EXISTS pms_award_type;
+CREATE TABLE pms_award_type(
+                               id int(10) NOT NULL AUTO_INCREMENT  COMMENT '主键id' ,
+                               award_type VARCHAR(2) NOT NULL   COMMENT '奖励类型 1-现金；2-优惠券；3-虚拟物品' ,
+                               award_type_name VARCHAR(100)    COMMENT '奖励类型名称' ,
+                               award_budget int(10)    COMMENT '奖励预算' ,
+                               awrad_budget_use int(10)    COMMENT '奖励预算使用' ,
+                               status VARCHAR(2) NOT NULL   COMMENT '状态 0-启用 2-停用 3-删除' ,
+                               CREATED_BY int (10)    COMMENT '创建人' ,
+                               CREATED_TIME DATETIME    COMMENT '创建时间' ,
+                               UPDATED_BY int (10)    COMMENT '更新人' ,
+                               UPDATED_TIME DATETIME    COMMENT '更新时间' ,
+    PRIMARY KEY (id)
+)  COMMENT = '奖励类型';
+
+DROP TABLE IF EXISTS here_award_usr_detail;
+CREATE TABLE here_award_usr_detail(
+                                      id int(10) NOT NULL AUTO_INCREMENT  COMMENT '主键id' ,
+                                      award_sub_type_id VARCHAR(2) NOT NULL   COMMENT '奖励类型 1-现金；2-优惠券；3-虚拟物品' ,
+                                      award_status VARCHAR(100)    COMMENT '0-领取；1-使用；2-过期' ,
+                                      award_budget int(10)    COMMENT '奖励预算' ,
+                                      status VARCHAR(2) NOT NULL   COMMENT '状态 0-启用 2-停用 3-删除' ,
+                                      receive_time DATETIME    COMMENT '领取时间' ,
+                                      use_time DATETIME    COMMENT '使用时间' ,
+                                      expired_time DATETIME    COMMENT '过期时间' ,
+                                      CREATED_BY int (10)    COMMENT '创建人' ,
+                                      CREATED_TIME DATETIME    COMMENT '创建时间' ,
+                                      UPDATED_BY int (10)    COMMENT '更新人' ,
+                                      UPDATED_TIME DATETIME    COMMENT '更新时间' ,
+    PRIMARY KEY (id)
+)  COMMENT = '奖励使用详情';
+
+
 
 
 
