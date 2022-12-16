@@ -13,6 +13,7 @@
     <modules>
         <module>here-common</module>
         <module>here-admin</module>
+        <module>here-web</module>
     </modules>
 
     <properties>
@@ -135,6 +136,10 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
