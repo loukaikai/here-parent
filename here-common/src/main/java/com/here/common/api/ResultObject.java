@@ -14,10 +14,13 @@ public class ResultObject<T> implements Serializable {
     private String message;
     private long code;
 
-    protected ResultObject(long code, String message, T data) {
+    private boolean isSuccess = true;
+
+    protected ResultObject(long code, String message, T data, boolean isSuccess) {
         this.code = code;
         this.message = message;
         this.data = data;
+        this.isSuccess = isSuccess;
     }
 
     /**
@@ -26,7 +29,7 @@ public class ResultObject<T> implements Serializable {
      * @param data 获取的数据
      */
     public static <T> ResultObject<T> success(T data) {
-        return new ResultObject<T>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), data);
+        return new ResultObject<T>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), data, true);
     }
 
     /**
@@ -36,7 +39,7 @@ public class ResultObject<T> implements Serializable {
      * @param  message 提示信息
      */
     public static <T> ResultObject<T> success(T data, String message) {
-        return new ResultObject<T>(ResultCode.SUCCESS.getCode(), message, data);
+        return new ResultObject<T>(ResultCode.SUCCESS.getCode(), message, data, true);
     }
 
     /**
@@ -44,7 +47,7 @@ public class ResultObject<T> implements Serializable {
      * @param errorCode 错误码
      */
     public static <T> ResultObject<T> failed(IErrorCode errorCode) {
-        return new ResultObject<T>(errorCode.getCode(), errorCode.getMessage(), null);
+        return new ResultObject<T>(errorCode.getCode(), errorCode.getMessage(), null, false);
     }
 
     /**
@@ -53,7 +56,7 @@ public class ResultObject<T> implements Serializable {
      * @param message 错误信息
      */
     public static <T> ResultObject<T> failed(IErrorCode errorCode,String message) {
-        return new ResultObject<T>(errorCode.getCode(), message, null);
+        return new ResultObject<T>(errorCode.getCode(), message, null, false);
     }
 
     /**
@@ -61,7 +64,7 @@ public class ResultObject<T> implements Serializable {
      * @param message 提示信息
      */
     public static <T> ResultObject<T> failed(String message) {
-        return new ResultObject<T>(ResultCode.FAILED.getCode(), message, null);
+        return new ResultObject<T>(ResultCode.FAILED.getCode(), message, null, false);
     }
 
     /**
@@ -83,22 +86,53 @@ public class ResultObject<T> implements Serializable {
      * @param message 提示信息
      */
     public static <T> ResultObject<T> validateFailed(String message) {
-        return new ResultObject<T>(ResultCode.VALIDATE_FAILED.getCode(), message, null);
+        return new ResultObject<T>(ResultCode.VALIDATE_FAILED.getCode(), message, null, false);
     }
 
     /**
      * 未登录返回结果
      */
     public static <T> ResultObject<T> unauthorized(T data) {
-        return new ResultObject<T>(ResultCode.UNAUTHORIZED.getCode(), ResultCode.UNAUTHORIZED.getMessage(), data);
+        return new ResultObject<T>(ResultCode.UNAUTHORIZED.getCode(), ResultCode.UNAUTHORIZED.getMessage(), data, false);
     }
 
     /**
      * 未授权返回结果
      */
     public static <T> ResultObject<T> forbidden(T data) {
-        return new ResultObject<T>(ResultCode.FORBIDDEN.getCode(), ResultCode.FORBIDDEN.getMessage(), data);
+        return new ResultObject<T>(ResultCode.FORBIDDEN.getCode(), ResultCode.FORBIDDEN.getMessage(), data, false);
     }
 
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public long getCode() {
+        return code;
+    }
+
+    public void setCode(long code) {
+        this.code = code;
+    }
+
+    public boolean isSuccess() {
+        return isSuccess;
+    }
+
+    public void setSuccess(boolean success) {
+        isSuccess = success;
+    }
 }
 
