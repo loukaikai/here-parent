@@ -33,4 +33,18 @@ public class RestTemplateUtil {
         }
         return result;
     }
+
+    public String getRequest(JSONObject jsonObject, String url) {
+        String result = "";
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            //所有的请求需要用JSON格式发送
+            HttpEntity<Object> formEntity = new HttpEntity<>(jsonObject, headers);
+            result = restTemplate.getForObject(url, String.class, formEntity);
+        } catch (Exception e) {
+            logger.error("小程序post请求异常{}", url);
+            e.printStackTrace();
+        }
+        return result;
+    }
 }
