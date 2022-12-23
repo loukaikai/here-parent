@@ -1,6 +1,6 @@
 package com.here.security;
 
-import com.here.modules.entity.HereUser;
+import com.here.modules.oauth.entity.HereUser;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 

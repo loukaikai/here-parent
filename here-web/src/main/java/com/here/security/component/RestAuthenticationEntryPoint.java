@@ -2,6 +2,8 @@ package com.here.security.component;
 
 import cn.hutool.json.JSONUtil;
 import com.here.common.api.CommonResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
@@ -15,8 +17,10 @@ import java.io.IOException;
  * Created by macro on 2018/5/14.
  */
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RestAuthenticationEntryPoint.class);
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+        LOGGER.info("********RestAuthenticationEntryPoint:自定义返回结果：未登录或登录过期*******");
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Cache-Control","no-cache");
         response.setCharacterEncoding("UTF-8");

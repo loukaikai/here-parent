@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.here.modules.order.mapper.HereOrdersMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.here.modules.order.entity.HereOrders">
+        <id column="id" property="id" />
+        <result column="order_no" property="orderNo" />
+        <result column="user_id" property="userId" />
+        <result column="user_code" property="userCode" />
+        <result column="goods_id" property="goodsId" />
+        <result column="goods_title" property="goodsTitle" />
+        <result column="goods_detail_id" property="goodsDetailId" />
+        <result column="goods_specifications" property="goodsSpecifications" />
+        <result column="address_id" property="addressId" />
+        <result column="buy_count" property="buyCount" />
+        <result column="unit_price" property="unitPrice" />
+        <result column="sum_price" property="sumPrice" />
+        <result column="freight_price" property="freightPrice" />
+        <result column="discount_amount" property="discountAmount" />
+        <result column="actual_payment" property="actualPayment" />
+        <result column="status" property="status" />
+        <result column="create_time" property="createTime" />
+        <result column="payment_time" property="paymentTime" />
+        <result column="delivery_time" property="deliveryTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+</mapper>

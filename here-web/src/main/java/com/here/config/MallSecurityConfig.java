@@ -1,5 +1,7 @@
 package com.here.config;
 
+import com.here.modules.oauth.entity.HereUser;
+import com.here.modules.oauth.service.HereUserService;
 import com.here.security.component.DynamicSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,17 +23,15 @@ import java.util.concurrent.ConcurrentHashMap;
 @Configuration
 public class MallSecurityConfig {
 
-//    @Autowired
-//    private UmsAdminService adminService;
-//    @Autowired
-//    private UmsResourceService resourceService;
+      @Autowired
+      private HereUserService hereUserService;
 
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        //获取登录用户信息
-////        return username -> adminService.loadUserByUsername(username);
-//        return null;
-//    }
+      @Bean
+      public UserDetailsService userDetailsService() {
+          //获取登录用户信息
+         return username -> hereUserService.loadUserByHereCod(username);
+
+    }
 
     @Bean
     public DynamicSecurityService dynamicSecurityService() {

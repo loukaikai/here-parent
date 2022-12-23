@@ -1,5 +1,5 @@
 server:
-  port: 8085
+  port: 8086
 
 spring:
   application:
@@ -49,6 +49,8 @@ secure:
       - /actuator/**
       - /druid/**
       - /login/weChart
+      - /login/weauthlogi
+      - /login/getWxToken
 #      - /admin/register
 #      - /admin/info
 #      - /admin/logout

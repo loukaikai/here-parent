@@ -6,6 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
@@ -19,6 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * Created by macro on 2019/11/5.
  */
 @Configuration
+@EnableWebSecurity(debug = true)
 public class SecurityConfig {
 
     @Autowired
@@ -52,8 +56,9 @@ public class SecurityConfig {
                 .authenticated()
                 // 关闭跨站请求防护及不使用session
                 .and()
-                .csrf()
-                .disable()
+                // .csrf()
+                //.disable()
+                .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 // 自定义权限拒绝处理类
@@ -66,7 +71,7 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
         //有动态权限配置时添加动态权限校验过滤器
         if(dynamicSecurityService!=null){
-            registry.and().addFilterBefore(dynamicSecurityFilter, FilterSecurityInterceptor.class);
+          //  registry.and().addFilterBefore(dynamicSecurityFilter, FilterSecurityInterceptor.class);
         }
         return httpSecurity.build();
     }

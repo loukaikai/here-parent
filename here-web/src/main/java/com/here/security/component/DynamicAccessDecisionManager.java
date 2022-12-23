@@ -1,6 +1,9 @@
 package com.here.security.component;
 
 import cn.hutool.core.collection.CollUtil;
+import com.here.modules.oauth.controller.LoginController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
@@ -17,9 +20,13 @@ import java.util.Iterator;
  */
 public class DynamicAccessDecisionManager implements AccessDecisionManager {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DynamicAccessDecisionManager.class);
+
     @Override
     public void decide(Authentication authentication, Object object,
                        Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {
+
+        LOGGER.info("*******DynamicAccessDecisionManager:动态权限决策管理器，用于判断用户是否有访问权限********");
         // 当接口未被配置资源时直接放行
         if (CollUtil.isEmpty(configAttributes)) {
             return;
