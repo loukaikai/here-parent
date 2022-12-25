@@ -51,6 +51,7 @@ secure:
       - /login/weChart
       - /login/weauthlogi
       - /login/getWxToken
+      - /wx/order/create
 #      - /admin/register
 #      - /admin/info
 #      - /admin/logout

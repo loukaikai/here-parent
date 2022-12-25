@@ -16,8 +16,8 @@ logging:
     com.here: debug
 
 wechart:
-  appid: wx137857903aa8b853
-  secret: 954e87d28cbaadfc87b381e44f892a69
+  appid: wx209e3f1fc444d6e1
+  secret: ed955677170d2a4829e60a7bbdfd42f8
   login_url: https://api.weixin.qq.com/sns/jscode2session
   acctoken_url:  https://api.weixin.qq.com/cgi-bin/token
   redirect_uri:
