@@ -1,5 +1,7 @@
 package com.here.common.utils;
 
+import cn.hutool.core.util.CharsetUtil;
+import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -34,13 +37,12 @@ public class RestTemplateUtil {
         return result;
     }
 
-    public String getRequest(JSONObject jsonObject, String url) {
+    public String getRequest(HashMap<String, Object> paramMap, String url) {
         String result = "";
         try {
-            HttpHeaders headers = new HttpHeaders();
-            //所有的请求需要用JSON格式发送
-            HttpEntity<Object> formEntity = new HttpEntity<>(jsonObject, headers);
-            result = restTemplate.getForObject(url, String.class, formEntity);
+
+            //可以单独传入http参数，这样参数会自动做URL编码，拼接在URL中
+            result= HttpUtil.get(url, paramMap);
         } catch (Exception e) {
             logger.error("小程序post请求异常{}", url);
             e.printStackTrace();
