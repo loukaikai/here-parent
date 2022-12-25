@@ -75,7 +75,7 @@ create table here_user
     Invitation_code  varchar(50) null comment '邀请码',
     my_code          varchar(50) null comment '我的邀请码',
     nameplate_flag   int         null comment '铭牌状态 0未点亮 1点亮',
-    user_status      int         null comment '  停用 启用',
+    user_status      int         null comment '  0-启用 ,1-停用 ',
     union_id         varchar(255) null comment '小程序unionid',
     open_id          varchar(255) null comment '小程序openid',
     create_time      datetime    null,
@@ -168,16 +168,12 @@ CREATE TABLE `here_user_address` (
                                      PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment '用户地址表';
 
-DROP TABLE IF EXISTS award_rule;
-DROP TABLE IF EXISTS award_source_pms;
-
-DROP TABLE IF EXISTS award_sub_type_pms;
-DROP TABLE IF EXISTS award_type_pms;
-DROP TABLE IF EXISTS award_usr_detail;
 DROP TABLE IF EXISTS pms_award_rule;
 CREATE TABLE pms_award_rule(
                                id INT(10) NOT NULL AUTO_INCREMENT  COMMENT '主键ID' ,
-                               award_rule VARCHAR(500) NOT NULL   COMMENT '奖励规则' ,
+                               source_id int(10),
+                               user_id int (10),
+
                                status VARCHAR(2) NOT NULL   COMMENT '标识 0-生效；1-失效。统一时间一个平台只有一个生效' ,
                                platform_flag VARCHAR(2)    COMMENT '平台标识 1-微信小程序；2-抖音' ,
                                CREATED_BY int (10)    COMMENT '创建人' ,
@@ -185,12 +181,13 @@ CREATE TABLE pms_award_rule(
                                UPDATED_BY int (10)    COMMENT '更新人' ,
                                UPDATED_TIME DATETIME    COMMENT '更新时间' ,
                                PRIMARY KEY (id)
-)  COMMENT = '奖励规则设置表';
+)  COMMENT = '奖励规则达标表';
 
 DROP TABLE IF EXISTS pms_award_source;
 CREATE TABLE pms_award_source(
                                  id int(10) NOT NULL AUTO_INCREMENT  COMMENT '主键id' ,
                                  award_source_type VARCHAR(2) NOT NULL   COMMENT '奖励类型 1-宝箱；2-邀请奖励' ,
+                                 award_rule VARCHAR(500) NOT NULL   COMMENT '奖励规则' ,
                                  award_source_name VARCHAR(100)    COMMENT '奖励类型名称' ,
                                  award_rule_id VARCHAR(255)    COMMENT '奖励规则id' ,
                                  status VARCHAR(32) NOT NULL   COMMENT '状态 0-启用 2-停用 3-删除' ,
