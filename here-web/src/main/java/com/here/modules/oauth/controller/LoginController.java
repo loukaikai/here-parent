@@ -90,8 +90,7 @@ public class LoginController {
         map.put("appid",appId);
         map.put("secret",secret);
         map.put("grant_type","client_credential");
-        JSONObject json = (JSONObject) JSONObject.toJSON(map);
-        String str = restTemplateUtil.getRequest(json,acctoknUrl);
+        String str = restTemplateUtil.getRequest(map,acctoknUrl);
         return str;
     }
 
