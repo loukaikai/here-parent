@@ -19,12 +19,10 @@ import java.util.Map;
 public class RestTemplateUtil {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    private RestTemplate restTemplate;
 
     public String PostRequest(JSONObject jsonObject, String url) {
         String result = "";
-        try {
+/*        try {
             HttpHeaders headers = new HttpHeaders();
             //所有的请求需要用JSON格式发送
             headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
@@ -33,7 +31,7 @@ public class RestTemplateUtil {
         } catch (Exception e) {
             logger.error("小程序post请求异常{}", url);
             e.printStackTrace();
-        }
+        }*/
         return result;
     }
 
