@@ -1,8 +1,13 @@
 package com.here.common.exception;
 
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.here.common.api.CommonResult;
+import com.here.common.api.ResultObject;
+import io.netty.util.internal.ThrowableUtil;
+import io.swagger.annotations.ApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -12,6 +17,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Field;
+import java.util.List;
 
 /**
  * 全局异常处理
@@ -33,7 +40,7 @@ public class GlobalExceptionHandler {
 
 
     /**
-     * 处理空指针的异常
+     * 处理空指针，业务的异常
      * @param e
      * @return
      */
@@ -73,5 +80,36 @@ public class GlobalExceptionHandler {
             }
         }
         return CommonResult.validateFailed(message);
+    }
+
+    @ResponseBody
+    @ExceptionHandler(value = HttpMessageNotReadableException.class)
+    public ResultObject httpMessageNotReadableException(HttpMessageNotReadableException e) {
+        // 打印堆栈信息
+        logger.info("[{}],[{}]",e, e.getMessage());
+
+       /* String erroMessage = null;
+        Throwable cause = e.getCause();
+        if (cause instanceof JsonMappingException) {
+            List<JsonMappingException.Reference> list = ((JsonMappingException) cause).getPath();
+            for (JsonMappingException.Reference r : list) {
+                Object object = r.getFrom();
+                Class<?> c = object.getClass();
+                String fieldName = r.getFieldName();
+                Field field;
+                try {
+                    field = c.getDeclaredField(fieldName);
+                    JsonFormatVaild jsonFormatVaild = field.getDeclaredAnnotation(JsonFormatVaild.class);
+                    erroMessage = jsonFormatVaild.message();
+                } catch (NoSuchFieldException noSuchFieldException) {
+                    noSuchFieldException.printStackTrace();
+                }
+                if (erroMessage != null) {
+                    break;
+                }
+            }
+        }*/
+         return ResultObject.failed(e.getMessage());
+
     }
 }
