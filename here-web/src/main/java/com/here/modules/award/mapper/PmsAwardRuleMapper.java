@@ -1,8 +1,7 @@
 package com.here.modules.award.mapper;
 
-
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.here.modules.award.entity.PmsAwardRule;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>
@@ -10,7 +9,7 @@ import com.here.modules.award.entity.PmsAwardRule;
  * </p>
  *
  * @author loukaikai
- * @since 2022-12-30
+ * @since 2022-12-31
  */
 public interface PmsAwardRuleMapper extends BaseMapper<PmsAwardRule> {
 

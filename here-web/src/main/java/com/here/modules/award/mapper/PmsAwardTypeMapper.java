@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author loukaikai
- * @since 2022-12-30
+ * @since 2022-12-31
  */
 public interface PmsAwardTypeMapper extends BaseMapper<PmsAwardType> {
 

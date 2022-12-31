@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author loukaikai
- * @since 2022-12-30
+ * @since 2022-12-31
  */
 @Service
 public class HereAwardUsrDetailServiceImpl extends ServiceImpl<HereAwardUsrDetailMapper, HereAwardUsrDetail> implements HereAwardUsrDetailService {
