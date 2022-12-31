@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @RestController
-@RequestMapping("/award/")
+@RequestMapping("/award")
 @Tag(name = "AwardController",description = "奖励管理")
 public class AwardController {
 
@@ -33,9 +33,9 @@ public class AwardController {
     @Autowired
     private PmsAwardRuleService pmsAwardRuleService;
     @ApiOperation(value = "添加抽奖次数")
-    @RequestMapping(value = "/addrule", method = RequestMethod.POST)
+    @RequestMapping(value = "/addawardcount", method = RequestMethod.POST)
     @ResponseBody
-    public ResultObject<Object> addRule(@Validated @RequestBody AddAwardCountVO addAwardCountVO) {
+    public ResultObject<Object> addawardcount(@Validated @RequestBody AddAwardCountVO addAwardCountVO) {
         logger.info("添加抽奖次数控制层========>start");
         ResultObject<Object> resultObject = pmsAwardRuleService.addAwardCount(addAwardCountVO);
         if (resultObject.isSuccess()) {
@@ -46,7 +46,7 @@ public class AwardController {
     }
 
     @ApiOperation("查询用户抽奖次数")
-    @RequestMapping(value = "/queryawardcount", method = RequestMethod.GET)
+    @RequestMapping(value = "/queryawardcount", method = RequestMethod.POST)
     @ResponseBody
     public ResultObject<Object> queryAwardCount(@Validated @RequestBody AddAwardCountVO addAwardCountVO) {
 
