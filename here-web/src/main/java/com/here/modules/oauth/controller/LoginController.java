@@ -15,6 +15,7 @@ import com.here.modules.oauth.entity.HereUser;
 import com.here.modules.oauth.service.HereUserService;
 import com.here.modules.oauth.vo.ThirdOauthVO;
 import com.here.modules.oauth.vo.WechatVO;
+import com.here.modules.oauth.vo.WriteInviCodeVO;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.request.AuthRequest;
 import me.zhyd.oauth.request.AuthWeChatEnterpriseThirdQrcodeRequest;
@@ -75,8 +76,8 @@ public class LoginController {
      * @return
      */
     @PostMapping("writeCode")
-    public ResultObject writeCode(@RequestParam("code") String code){
-        return new ResultObject(userService.writeCode(code),"success",200, true);
+    public ResultObject writeCode(@RequestBody @Validated WriteInviCodeVO writeInviCodeVO){
+        return new ResultObject(userService.writeCode(writeInviCodeVO),"success",200, true);
     }
 
     /**

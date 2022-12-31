@@ -16,6 +16,6 @@ import org.apache.ibatis.annotations.Update;
 @Mapper
 public interface HereUserMapper extends BaseMapper<HereUser> {
 
-    @Update("{update here_user set invitation_code=#{code} where here_code=#{hereCode}")
-    Integer updateInvitationCode(String code,String hereCode);
+    @Update("{update here_user set invitation_id=#{invitationId}, invitation_code=#{code} where id=#{userId}")
+    Integer updateInvitationCode(int invitation_id, String code,int userId);
 }

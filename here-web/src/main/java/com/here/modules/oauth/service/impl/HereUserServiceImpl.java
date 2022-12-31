@@ -5,6 +5,7 @@ import cn.hutool.json.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.here.common.api.ResultObject;
+import com.here.common.utils.AiDouGenerateUtils;
 import com.here.common.utils.HttpClientUtil;
 import com.here.common.utils.JwtTokenUtil;
 import com.here.domain.AdminUserDetails;
@@ -15,6 +16,7 @@ import com.here.modules.oauth.mapper.HereUserMapper;
 import com.here.modules.oauth.service.HereUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.here.modules.oauth.vo.HereUserVo;
+import com.here.modules.oauth.vo.WriteInviCodeVO;
 import com.here.security.SecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * <p>
@@ -72,9 +75,20 @@ public class HereUserServiceImpl extends ServiceImpl<HereUserMapper, HereUser> i
     }
 
     @Override
-    public Boolean writeCode(String code) {
-        HereUser hereUser = SecurityUtil.getCurrentUser();
-        Integer changeCt = baseMapper.updateInvitationCode(code, hereUser.getHereCode());
+    public Boolean writeCode(WriteInviCodeVO writeInviCodeVO) {
+        int userId = writeInviCodeVO.getUserId();
+        int inviId = writeInviCodeVO.getInviId();
+        String inviCode = writeInviCodeVO.getInviCode();
+
+        if (Objects.isNull(userId)){
+            HereUser hereUser = SecurityUtil.getCurrentUser();
+            userId = hereUser.getId();
+        }
+
+        if (Objects.isNull(inviId)){
+            inviId = Integer.parseInt(String.valueOf(AiDouGenerateUtils.codeToId(inviCode)));
+        }
+        Integer changeCt = baseMapper.updateInvitationCode(inviId, inviCode, userId);
         if (changeCt<=1){
             return true;
         }

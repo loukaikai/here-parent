@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.here.common.api.ResultObject;
 import com.here.domain.AdminUserDetails;
 import com.here.modules.oauth.entity.HereUser;
+import com.here.modules.oauth.vo.WriteInviCodeVO;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
@@ -21,7 +22,7 @@ public interface HereUserService extends IService<HereUser> {
 
     Object getUser();
 
-    Boolean writeCode(String code);
+    Boolean writeCode(WriteInviCodeVO writeInviCodeVO);
 
     /**
      * 根据微信号查询
