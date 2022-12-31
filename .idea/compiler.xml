@@ -17,7 +17,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="here-admin" options="-parameters" />
       <module name="here-common" options="-parameters" />
-      <module name="here-parent" options="-parameters" />
+      <module name="here-parent" options="" />
       <module name="here-web" options="-parameters" />
       <module name="mall-tiny" options="" />
     </option>
