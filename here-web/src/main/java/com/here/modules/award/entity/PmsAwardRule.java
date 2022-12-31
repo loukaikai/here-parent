@@ -30,33 +30,17 @@ public class PmsAwardRule implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty("奖励来源id")
     private Integer sourceId;
-
-    @ApiModelProperty("奖励来源名称")
-    private String sourceName;
-
-    @ApiModelProperty("奖励大类id")
-    private String awardTypeId;
-
-    @ApiModelProperty("奖励类型名称")
-    private String awardTypeName;
-
-    @ApiModelProperty("奖励子类id")
-    private Integer awardSubtypeTypeId;
-
-    @ApiModelProperty("奖励子类名称")
-    private String awardSubtypeTypeName;
 
     private Integer userId;
 
-    @ApiModelProperty("抽奖类的抽奖次数")
+    @ApiModelProperty("抽奖次数")
     private Integer times;
 
-    @ApiModelProperty("1-奖励来源；2-奖励大类；3-奖励子类")
+    @ApiModelProperty("标识 0-生效；1-失效。")
     private String status;
 
-    @ApiModelProperty("平台标识 1-微信小程序；2-抖音；3-通用")
+    @ApiModelProperty("平台标识 1-微信小程序；2-抖音;3-通用")
     private String platformFlag;
 
     @ApiModelProperty("创建人")
