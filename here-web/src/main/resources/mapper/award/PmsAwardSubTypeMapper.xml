@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.here.modules.award.mapper.PmsAwardSubTypeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.here.modules.award.entity.PmsAwardSubType">
+        <id column="id" property="id" />
+        <result column="award_type_id" property="awardTypeId" />
+        <result column="award_subtype_type_name" property="awardSubtypeTypeName" />
+        <result column="award_virtual_id" property="awardVirtualId" />
+        <result column="status" property="status" />
+        <result column="effctive_days" property="effctiveDays" />
+        <result column="CREATED_BY" property="createdBy" />
+        <result column="CREATED_TIME" property="createdTime" />
+        <result column="UPDATED_BY" property="updatedBy" />
+        <result column="UPDATED_TIME" property="updatedTime" />
+    </resultMap>
+
+</mapper>

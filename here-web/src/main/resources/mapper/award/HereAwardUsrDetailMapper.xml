@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.here.modules.award.mapper.HereAwardUsrDetailMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.here.modules.award.entity.HereAwardUsrDetail">
+        <id column="id" property="id" />
+        <result column="award_sub_type_id" property="awardSubTypeId" />
+        <result column="award_status" property="awardStatus" />
+        <result column="userId" property="userId" />
+        <result column="status" property="status" />
+        <result column="receive_time" property="receiveTime" />
+        <result column="use_time" property="useTime" />
+        <result column="expired_time" property="expiredTime" />
+        <result column="CREATED_BY" property="createdBy" />
+        <result column="CREATED_TIME" property="createdTime" />
+        <result column="UPDATED_BY" property="updatedBy" />
+        <result column="UPDATED_TIME" property="updatedTime" />
+    </resultMap>
+
+</mapper>
