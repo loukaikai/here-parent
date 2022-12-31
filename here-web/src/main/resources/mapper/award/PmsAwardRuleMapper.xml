@@ -6,7 +6,13 @@
     <resultMap id="BaseResultMap" type="com.here.modules.award.entity.PmsAwardRule">
         <id column="id" property="id" />
         <result column="source_id" property="sourceId" />
+        <result column="source_name" property="sourceName" />
+        <result column="award_type_id" property="awardTypeId" />
+        <result column="award_type_name" property="awardTypeName" />
+        <result column="award_subtype_type_id" property="awardSubtypeTypeId" />
+        <result column="award_subtype_type_name" property="awardSubtypeTypeName" />
         <result column="user_id" property="userId" />
+        <result column="times" property="times" />
         <result column="status" property="status" />
         <result column="platform_flag" property="platformFlag" />
         <result column="CREATED_BY" property="createdBy" />
