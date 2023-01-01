@@ -1,12 +1,10 @@
 package com.here.modules.award.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.here.common.api.CommonPage;
 import com.here.common.api.ResultObject;
+import com.here.modules.award.dto.CouponDTO;
+import com.here.modules.award.service.HereAwardUsrDetailService;
 import com.here.modules.award.service.PmsAwardRuleService;
 import com.here.modules.award.vo.AddAwardCountVO;
-import com.here.modules.order.dto.HereOrdersDTO;
-import com.here.modules.order.entity.HereOrders;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
@@ -32,6 +30,10 @@ public class AwardController {
 
     @Autowired
     private PmsAwardRuleService pmsAwardRuleService;
+
+    @Autowired
+    private HereAwardUsrDetailService hereAwardUsrDetailService;
+
     @ApiOperation(value = "添加抽奖次数")
     @RequestMapping(value = "/addawardcount", method = RequestMethod.POST)
     @ResponseBody
@@ -58,4 +60,12 @@ public class AwardController {
 
         return ResultObject.failed("查询用户抽奖次数失败");
     }
+
+    @ApiOperation("发放优惠券")
+    @PostMapping("/coupon")
+    public ResultObject<Void> addCoupon(@RequestBody CouponDTO couponDTO) {
+        hereAwardUsrDetailService.addCoupon(couponDTO);
+        return ResultObject.success(null);
+    }
+
 }

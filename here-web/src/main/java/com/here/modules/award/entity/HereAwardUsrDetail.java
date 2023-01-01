@@ -3,12 +3,13 @@ package com.here.modules.award.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.util.Date;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -31,16 +32,16 @@ public class HereAwardUsrDetail implements Serializable {
     private Integer id;
 
     @ApiModelProperty("奖励类型 1-现金；2-优惠券；3-虚拟物品")
-    private String awardSubTypeId;
+    private Integer awardSubTypeId;
 
     @ApiModelProperty("0-领取；1-使用；2-过期")
-    private String awardStatus;
+    private Integer awardStatus;
 
     @ApiModelProperty("用户")
     private Integer userId;
 
     @ApiModelProperty("状态 0-启用 2-停用 3-删除")
-    private String status;
+    private Integer status;
 
     @ApiModelProperty("领取时间")
     private Date receiveTime;

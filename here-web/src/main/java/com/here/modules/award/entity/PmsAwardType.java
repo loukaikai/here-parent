@@ -3,12 +3,13 @@ package com.here.modules.award.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.util.Date;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -31,7 +32,7 @@ public class PmsAwardType implements Serializable {
     private Integer id;
 
     @ApiModelProperty("奖励类型 1-现金；2-优惠券；3-虚拟物品")
-    private String awardType;
+    private Integer awardType;
 
     @ApiModelProperty("奖励类型名称")
     private String awardTypeName;

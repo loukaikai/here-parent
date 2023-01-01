@@ -62,9 +62,17 @@ public class NameplateAssistServiceImpl implements NameplateAssistService {
             throw new BizException("助力用户不存在");
         }
 
-        NameplateAssistDO nameplateAssistDO = new NameplateAssistDO();
-        nameplateAssistDO.setApplyUserId(hereUser.getId());
-        nameplateAssistDO.setAssistUserId(assistHereUser.getId());
-        nameplateAssistMapper.insert(nameplateAssistDO);
+        LambdaQueryWrapper<NameplateAssistDO> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(NameplateAssistDO::getApplyUserId, hereUser.getId())
+                .eq(NameplateAssistDO::getAssistUserId, assistHereUser.getId());
+        NameplateAssistDO nameplateAssistDO = nameplateAssistMapper.selectOne(wrapper);
+        if (Objects.nonNull(nameplateAssistDO)) {
+            throw new BizException("该用户已经助力");
+        } else {
+            nameplateAssistDO = new NameplateAssistDO();
+            nameplateAssistDO.setApplyUserId(hereUser.getId());
+            nameplateAssistDO.setAssistUserId(assistHereUser.getId());
+            nameplateAssistMapper.insert(nameplateAssistDO);
+        }
     }
 }
