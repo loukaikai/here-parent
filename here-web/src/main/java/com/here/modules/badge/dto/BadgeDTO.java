@@ -2,6 +2,7 @@ package com.here.modules.badge.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -16,6 +17,7 @@ public class BadgeDTO implements Serializable {
     /**
      * 徽章名称
      */
+    @NotNull(message = "徽章名称不能为空")
     private String badgeName;
 
     /**
@@ -26,6 +28,7 @@ public class BadgeDTO implements Serializable {
     /**
      * 用户手机号
      */
+    @NotNull(message = "手机号不能为空")
     private String userPhone;
 
 }

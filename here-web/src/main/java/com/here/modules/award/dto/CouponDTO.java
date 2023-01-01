@@ -2,6 +2,7 @@ package com.here.modules.award.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -16,10 +17,12 @@ public class CouponDTO implements Serializable {
     /**
      * 发放优惠券目标用户ID
      */
+    @NotNull(message = "用户ID不能为空")
     private Integer userId;
 
     /**
      * 优惠券类型ID
      */
+    @NotNull(message = "优惠券类型不能为空")
     private Integer awardSubTypeId;
 }
