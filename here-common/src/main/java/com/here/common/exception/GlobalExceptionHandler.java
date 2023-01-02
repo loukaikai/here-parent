@@ -31,11 +31,11 @@ public class GlobalExceptionHandler {
 
     @ResponseBody
     @ExceptionHandler(value = ApiException.class)
-    public CommonResult handle(ApiException e) {
+    public ResultObject handle(ApiException e) {
         if (e.getErrorCode() != null) {
-            return CommonResult.failed(e.getErrorCode());
+            return ResultObject.failed(e.getErrorCode());
         }
-        return CommonResult.failed(e.getMessage());
+        return ResultObject.failed(e.getMessage());
     }
 
 
@@ -46,17 +46,17 @@ public class GlobalExceptionHandler {
      */
     @ResponseBody
     @ExceptionHandler(value = BizException.class)
-    public CommonResult Bizxceptionhandle(BizException e) {
+    public ResultObject Bizxceptionhandle(BizException e) {
         logger.error("发生业务异常！原因是:",e);
         if (e.getErrorCode() != null) {
-            return CommonResult.failed(e.getErrorCode());
+            return ResultObject.failed(e.getErrorCode());
         }
-        return CommonResult.failed(e.getMessage());
+        return ResultObject.failed(e.getMessage());
     }
 
     @ResponseBody
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    public CommonResult handleValidException(MethodArgumentNotValidException e) {
+    public ResultObject handleValidException(MethodArgumentNotValidException e) {
         BindingResult bindingResult = e.getBindingResult();
         String message = null;
         if (bindingResult.hasErrors()) {
@@ -65,12 +65,12 @@ public class GlobalExceptionHandler {
                 message = fieldError.getField()+fieldError.getDefaultMessage();
             }
         }
-        return CommonResult.validateFailed(message);
+        return ResultObject.validateFailed(message);
     }
 
     @ResponseBody
     @ExceptionHandler(value = BindException.class)
-    public CommonResult handleValidException(BindException e) {
+    public ResultObject handleValidException(BindException e) {
         BindingResult bindingResult = e.getBindingResult();
         String message = null;
         if (bindingResult.hasErrors()) {
@@ -79,7 +79,7 @@ public class GlobalExceptionHandler {
                 message = fieldError.getField()+fieldError.getDefaultMessage();
             }
         }
-        return CommonResult.validateFailed(message);
+        return ResultObject.validateFailed(message);
     }
 
     @ResponseBody
