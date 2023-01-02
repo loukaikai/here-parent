@@ -34,6 +34,9 @@ public class HereAwardUsrDetail implements Serializable {
     @ApiModelProperty("奖励类型 1-现金；2-优惠券；3-虚拟物品")
     private Integer awardSubTypeId;
 
+    @ApiModelProperty("徽章ID")
+    private Integer badgeId;
+
     @ApiModelProperty("0-领取；1-使用；2-过期")
     private Integer awardStatus;
 

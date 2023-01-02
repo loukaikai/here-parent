@@ -1,7 +1,7 @@
 package com.here.modules.award.controller;
 
 import com.here.common.api.ResultObject;
-import com.here.modules.award.dto.CouponDTO;
+import com.here.modules.award.dto.AwardDTO;
 import com.here.modules.award.service.HereAwardUsrDetailService;
 import com.here.modules.award.service.PmsAwardRuleService;
 import com.here.modules.award.vo.AddAwardCountVO;
@@ -63,8 +63,8 @@ public class AwardController {
 
     @ApiOperation("发放优惠券")
     @PostMapping("/coupon")
-    public ResultObject<Void> addCoupon(@RequestBody CouponDTO couponDTO) {
-        hereAwardUsrDetailService.addCoupon(couponDTO);
+    public ResultObject<Void> addCoupon(@RequestBody AwardDTO awardDTO) {
+        hereAwardUsrDetailService.addCoupon(awardDTO);
         return ResultObject.success(null);
     }
 

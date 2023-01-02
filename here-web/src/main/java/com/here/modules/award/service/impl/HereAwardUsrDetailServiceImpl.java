@@ -1,6 +1,6 @@
 package com.here.modules.award.service.impl;
 
-import com.here.modules.award.dto.CouponDTO;
+import com.here.modules.award.dto.AwardDTO;
 import com.here.modules.award.entity.HereAwardUsrDetail;
 import com.here.modules.award.mapper.HereAwardUsrDetailMapper;
 import com.here.modules.award.service.HereAwardUsrDetailService;
@@ -25,11 +25,17 @@ public class HereAwardUsrDetailServiceImpl extends ServiceImpl<HereAwardUsrDetai
     private HereAwardUsrDetailMapper hereAwardUsrDetailMapper;
 
     @Override
-    public void addCoupon(CouponDTO couponDTO) {
+    public void addCoupon(AwardDTO awardDTO) {
         HereAwardUsrDetail hereAwardUsrDetail = new HereAwardUsrDetail();
-        hereAwardUsrDetail.setAwardSubTypeId(couponDTO.getAwardSubTypeId());
+        if (awardDTO.getAwardType() == 0) {
+            hereAwardUsrDetail.setAwardSubTypeId(-1);
+            hereAwardUsrDetail.setBadgeId(awardDTO.getContentId());
+        } else {
+            hereAwardUsrDetail.setAwardSubTypeId(awardDTO.getContentId());
+            hereAwardUsrDetail.setBadgeId(-1);
+        }
         hereAwardUsrDetail.setAwardStatus(0);
-        hereAwardUsrDetail.setUserId(couponDTO.getUserId());
+        hereAwardUsrDetail.setUserId(awardDTO.getUserId());
         hereAwardUsrDetail.setStatus(1);
         hereAwardUsrDetail.setReceiveTime(new Date());
         hereAwardUsrDetailMapper.insert(hereAwardUsrDetail);

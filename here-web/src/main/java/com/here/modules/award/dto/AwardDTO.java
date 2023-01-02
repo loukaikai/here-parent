@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @author Lzk
  */
 @Data
-public class CouponDTO implements Serializable {
+public class AwardDTO implements Serializable {
 
     private static final long serialVersionUID = -3625303118964766248L;
 
@@ -21,8 +21,14 @@ public class CouponDTO implements Serializable {
     private Integer userId;
 
     /**
+     * 奖励类型
+     */
+    @NotNull(message = "奖励类型不能为空")
+    private Integer awardType;
+
+    /**
      * 优惠券类型ID
      */
-    @NotNull(message = "优惠券类型不能为空")
-    private Integer awardSubTypeId;
+    @NotNull(message = "奖励内容ID不能为空")
+    private Integer contentId;
 }
