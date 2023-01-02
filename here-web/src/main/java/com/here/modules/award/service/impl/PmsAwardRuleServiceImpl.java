@@ -13,6 +13,7 @@ import com.here.modules.award.mapper.PmsAwardSourceMapper;
 import com.here.modules.award.service.PmsAwardRuleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.here.modules.award.vo.AddAwardCountVO;
+import com.here.modules.award.vo.DeAwardCountVO;
 import com.here.modules.order.entity.HereOrders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,6 +55,8 @@ public class PmsAwardRuleServiceImpl extends ServiceImpl<PmsAwardRuleMapper, Pms
         LambdaQueryWrapper<PmsAwardRule> lambda = wrapper.lambda();
         lambda.eq(PmsAwardRule::getUserId,userId).eq(PmsAwardRule::getSourceId, sourceId);
         PmsAwardRule pmsAwardRule = getOne(wrapper);
+
+        // 分布式锁
         if (Objects.nonNull(pmsAwardRule)){
             int times = pmsAwardRule.getTimes();
             pmsAwardRule.setTimes(times++);
@@ -66,6 +69,54 @@ public class PmsAwardRuleServiceImpl extends ServiceImpl<PmsAwardRuleMapper, Pms
         save(pmsAwardRule);
       //  PmsAwardRule pmsAwardRule = new PmsAwardRule();
         resultObject.setMessage("添加抽奖次数完成");
+        resultObject.setSuccess(true);
+        resultObject.setData(pmsAwardRule);
+        return resultObject;
+    }
+
+    /**
+     * @param deAwardCountVO
+     * @return
+     */
+    @Override
+    public ResultObject<Object> deAwardCount(DeAwardCountVO deAwardCountVO) {
+        LOGGER.info("减少抽奖次数服务======start");
+        ResultObject<Object> resultObject = new ResultObject<>();
+        int sourceId = deAwardCountVO.getSourceId();
+        int userId = deAwardCountVO.getUserId();
+        int count = deAwardCountVO.getDelCount();
+
+        PmsAwardSource pmsAwardSource = pmsAwardSourceMapper.selectById(sourceId);
+        if (Objects.isNull(pmsAwardSource)){
+            throw new BizException("sourceId"+"对应数据为空");
+        }
+
+        QueryWrapper<PmsAwardRule> wrapper = new QueryWrapper<PmsAwardRule>();
+        LambdaQueryWrapper<PmsAwardRule> lambda = wrapper.lambda();
+        lambda.eq(PmsAwardRule::getUserId,userId).eq(PmsAwardRule::getSourceId, sourceId);
+        PmsAwardRule pmsAwardRule = getOne(wrapper);
+
+
+        if (Objects.isNull(pmsAwardRule)){
+            throw new BizException("用户抽奖次数数据为空");
+        }
+
+        // 分布式锁，第二期上
+        int times = pmsAwardRule.getTimes();
+        if (times <= 0){
+            resultObject.setMessage("抽奖次数已经为0，不再扣减");
+            resultObject.setSuccess(true);
+            resultObject.setData(pmsAwardRule);
+        }
+        if (times < count){
+            throw new BizException("用户抽奖次数小于扣减次数");
+        }
+        times = times - count;
+        pmsAwardRule.setTimes(times);
+
+        saveOrUpdate(pmsAwardRule);
+        //  PmsAwardRule pmsAwardRule = new PmsAwardRule();
+        resultObject.setMessage("扣减抽奖次数完成");
         resultObject.setSuccess(true);
         resultObject.setData(pmsAwardRule);
         return resultObject;

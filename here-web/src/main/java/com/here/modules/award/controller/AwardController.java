@@ -5,6 +5,9 @@ import com.here.modules.award.dto.CouponDTO;
 import com.here.modules.award.service.HereAwardUsrDetailService;
 import com.here.modules.award.service.PmsAwardRuleService;
 import com.here.modules.award.vo.AddAwardCountVO;
+import com.here.modules.award.vo.DeAwardCountVO;
+import com.here.modules.order.dto.HereOrdersDTO;
+import com.here.modules.order.entity.HereOrders;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
@@ -45,6 +48,19 @@ public class AwardController {
         }
 
         return ResultObject.failed("添加抽奖次数失败");
+    }
+
+    @ApiOperation(value = "消耗抽奖次数")
+    @RequestMapping(value = "/deawardcount", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultObject<Object> deAwardCount(@Validated @RequestBody DeAwardCountVO deAwardCountVO) {
+        logger.info("消耗抽奖次数控制层========>start");
+        ResultObject<Object> resultObject = pmsAwardRuleService.deAwardCount(deAwardCountVO);
+        if (resultObject.isSuccess()) {
+            return resultObject;
+        }
+
+        return ResultObject.failed("消耗抽奖次数失败");
     }
 
     @ApiOperation("查询用户抽奖次数")
