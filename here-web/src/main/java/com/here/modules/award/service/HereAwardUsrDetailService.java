@@ -1,6 +1,6 @@
 package com.here.modules.award.service;
 
-import com.here.modules.award.dto.CouponDTO;
+import com.here.modules.award.dto.AwardDTO;
 import com.here.modules.award.entity.HereAwardUsrDetail;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -16,8 +16,8 @@ public interface HereAwardUsrDetailService extends IService<HereAwardUsrDetail> 
 
     /**
      * 增加优惠券
-     * @param couponDTO 优惠券信息
+     * @param awardDTO 优惠券信息
      */
-    void addCoupon(CouponDTO couponDTO);
+    void addCoupon(AwardDTO awardDTO);
 
 }
