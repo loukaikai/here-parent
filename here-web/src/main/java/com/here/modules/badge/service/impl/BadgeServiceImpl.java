@@ -11,7 +11,7 @@ import com.here.modules.oauth.mapper.HereUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
+import java.util.*;
 
 /**
  * 徽章模块service
@@ -40,6 +40,20 @@ public class BadgeServiceImpl implements BadgeService {
         badgeDO.setBadgeUrl(badgeDTO.getBadgeUrl());
         badgeDO.setUserId(hereUser.getId());
         badgeMapper.insert(badgeDO);
+    }
+
+    @Override
+    public List<String> getBadgeByUserId(Integer userId) {
+        LambdaQueryWrapper<BadgeDO> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(BadgeDO::getUserId, userId);
+        List<BadgeDO> badgeDOs = Optional.ofNullable(badgeMapper.selectList(wrapper)).orElse(Collections.emptyList());
+        if (badgeDOs.isEmpty()) {
+            throw new BizException("用户尚未获得任何徽章");
+        } else {
+            List<String> badgeNames = new ArrayList<>();
+            badgeDOs.forEach(badgeDO -> badgeNames.add(badgeDO.getName()));
+            return badgeNames;
+        }
     }
 
 }
