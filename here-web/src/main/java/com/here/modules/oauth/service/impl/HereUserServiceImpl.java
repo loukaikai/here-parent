@@ -106,10 +106,10 @@ public class HereUserServiceImpl extends ServiceImpl<HereUserMapper, HereUser> i
     }
 
     @Override
-    public UserDetails loadUserByHereCod(String hereCode){
+    public UserDetails loadUserByHereCod(String userId){
         //获取用户信息
         LambdaQueryWrapper<HereUser> lqw = Wrappers.lambdaQuery();
-        lqw.eq(HereUser::getHereCode, hereCode);
+        lqw.eq(HereUser::getOpenId, userId);
         HereUser user = getOne(lqw);
         if (user != null) {
 
@@ -131,14 +131,14 @@ public class HereUserServiceImpl extends ServiceImpl<HereUserMapper, HereUser> i
         map.put("grant_type", "authorization_code");
 
         //开发者服务器 登录凭证校验接口 appi + appsecret + code
-       String responseContent = HttpClientUtil.doGet(weChartLoginUrl, map);
-       JSONObject jsonData = new JSONObject(responseContent);
+      // String responseContent = HttpClientUtil.doGet(weChartLoginUrl, map);
+      // JSONObject jsonData = new JSONObject(responseContent);
 
 
         //接收微信接口服务 获取返回的参数
-        // String openid = jsonData.getString("openid");
-        String openid = "openid"+UUID.fastUUID();
-        // String sessionKey = jsonData.getString("session_key");
+        //String openid = jsonData.getStr("openid");
+         String openid = "openid"+UUID.fastUUID();
+        // String sessionKey = jsonData.getStr("session_key");
         String sessionKey = "session_key"+UUID.fastUUID();
 
         // 5.根据返回的User实体类，判断用户是否是新用户，是的话，将用户信息存到数据库；
@@ -175,6 +175,7 @@ public class HereUserServiceImpl extends ServiceImpl<HereUserMapper, HereUser> i
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", tokenHead);
+        tokenMap.put("user", new JSONObject(user).toString());
         LOGGER.info("token:[{}] tokenHead:[{tokenHead}]", token);
         return ResultObject.success(tokenMap);
     }

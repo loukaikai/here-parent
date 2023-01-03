@@ -32,12 +32,12 @@ public class WxchatDtailDTO implements UserDetails {
 
     @Override
     public String getPassword() {
-        return hereUser.getOpenId();
+        return "password";
     }
 
     @Override
     public String getUsername() {
-        return hereUser.getHereCode();
+        return hereUser.getOpenId();
     }
 
     @Override
