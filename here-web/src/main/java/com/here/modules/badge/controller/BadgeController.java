@@ -4,10 +4,9 @@ import com.here.common.api.ResultObject;
 import com.here.modules.badge.dto.BadgeDTO;
 import com.here.modules.badge.service.BadgeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 徽章模块controller
@@ -29,6 +28,16 @@ public class BadgeController {
     public ResultObject<Void> addBadge(@RequestBody BadgeDTO badgeDTO) {
         badgeService.addBadge(badgeDTO);
         return ResultObject.success(null);
+    }
+
+    /**
+     * 获取用户徽章
+     * @param userId 用户ID
+     * @return 用户徽章名称
+     */
+    @GetMapping("/user")
+    public ResultObject<List<String>> getBadgeByUserId(@RequestParam Integer userId) {
+        return ResultObject.success(badgeService.getBadgeByUserId(userId));
     }
 
 }
