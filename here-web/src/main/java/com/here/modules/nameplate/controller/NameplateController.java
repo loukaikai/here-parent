@@ -47,7 +47,7 @@ public class NameplateController {
      * @param phone 用户手机号
      * @return 铭牌编号
      */
-    @GetMapping("/check")
+    @GetMapping("/number")
     public ResultObject<String> checkNameplate(@RequestParam String phone) {
         return ResultObject.success(nameplateService.getNameplateNumber(phone));
     }
