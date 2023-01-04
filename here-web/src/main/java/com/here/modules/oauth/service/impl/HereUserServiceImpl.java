@@ -131,15 +131,15 @@ public class HereUserServiceImpl extends ServiceImpl<HereUserMapper, HereUser> i
         map.put("grant_type", "authorization_code");
 
         //开发者服务器 登录凭证校验接口 appi + appsecret + code
-      // String responseContent = HttpClientUtil.doGet(weChartLoginUrl, map);
-      // JSONObject jsonData = new JSONObject(responseContent);
+       String responseContent = HttpClientUtil.doGet(weChartLoginUrl, map);
+       JSONObject jsonData = new JSONObject(responseContent);
 
 
         //接收微信接口服务 获取返回的参数
-        //String openid = jsonData.getStr("openid");
-         String openid = "openid"+UUID.fastUUID();
-        // String sessionKey = jsonData.getStr("session_key");
-        String sessionKey = "session_key"+UUID.fastUUID();
+        String openid = jsonData.getStr("openid");
+        // String openid = "openid"+UUID.fastUUID();
+        String sessionKey = jsonData.getStr("session_key");
+        //String sessionKey = "session_key"+UUID.fastUUID();
 
         // 5.根据返回的User实体类，判断用户是否是新用户，是的话，将用户信息存到数据库；
         LambdaQueryWrapper<HereUser> lqw = Wrappers.lambdaQuery();
