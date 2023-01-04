@@ -80,17 +80,21 @@ public class NameplateServiceImpl implements NameplateService {
     }
 
     @Override
-    public boolean checkNameplate(String phone) {
+    public String getNameplateNumber(String phone) {
         LambdaQueryWrapper<HereUser> userWrapper = new LambdaQueryWrapper<>();
         userWrapper.eq(HereUser::getPhone, phone);
         HereUser hereUser = hereUserMapper.selectOne(userWrapper);
         if (Objects.isNull(hereUser)) {
-            return false;
+            throw new BizException("用户不存在");
         }
 
         LambdaQueryWrapper<NameplateDO> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(NameplateDO::getUserId, hereUser.getId());
         NameplateDO nameplateDO = nameplateMapper.selectOne(wrapper);
-        return Objects.nonNull(nameplateDO);
+        if (Objects.isNull(nameplateDO)) {
+            throw new BizException("用户尚未获得铭牌");
+        } else {
+            return nameplateDO.getNameplateNumber();
+        }
     }
 }

@@ -43,13 +43,13 @@ public class NameplateController {
     }
 
     /**
-     * 查验用户是否已获得铭牌
+     * 获取用户铭牌编号
      * @param phone 用户手机号
-     * @return 查验结果
+     * @return 铭牌编号
      */
     @GetMapping("/check")
-    public ResultObject<Boolean> checkNameplate(@RequestParam String phone) {
-        return ResultObject.success(nameplateService.checkNameplate(phone));
+    public ResultObject<String> checkNameplate(@RequestParam String phone) {
+        return ResultObject.success(nameplateService.getNameplateNumber(phone));
     }
 
     /**

@@ -21,10 +21,10 @@ public interface NameplateService {
     List<String> getNameplateList();
 
     /**
-     * 查验用户是否已获得铭牌
+     * 获取用户铭牌编号
      * @param phone 用户手机号
-     * @return 查验结果
+     * @return 铭牌编号
      */
-    boolean checkNameplate(String phone);
+    String getNameplateNumber(String phone);
 
 }
