@@ -62,7 +62,7 @@ public class PmsAwardRuleServiceImpl extends ServiceImpl<PmsAwardRuleMapper, Pms
             pmsAwardRule.setTimes(times++);
         }else {
             pmsAwardRule = new PmsAwardRule();
-            pmsAwardRule.setTimes(1);
+            pmsAwardRule.setTimes(4);
             pmsAwardRule.setStatus("0");
             pmsAwardRule.setPlatformFlag("3");
         }
@@ -137,6 +137,13 @@ public class PmsAwardRuleServiceImpl extends ServiceImpl<PmsAwardRuleMapper, Pms
         LambdaQueryWrapper<PmsAwardRule> lambda = wrapper.lambda();
         lambda.eq(PmsAwardRule::getUserId,userId).eq(PmsAwardRule::getSourceId, sourceId);
         PmsAwardRule pmsAwardRule = getOne(wrapper);
+        if (Objects.isNull(pmsAwardRule)){
+            pmsAwardRule = new PmsAwardRule();
+            pmsAwardRule.setTimes(4);
+            pmsAwardRule.setStatus("0");
+            pmsAwardRule.setPlatformFlag("3");
+            saveOrUpdate(pmsAwardRule);
+        }
         //  PmsAwardRule pmsAwardRule = new PmsAwardRule();
         resultObject.setMessage("查询用户抽奖次数完成");
         resultObject.setSuccess(true);
