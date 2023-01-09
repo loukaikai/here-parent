@@ -62,6 +62,8 @@ public class PmsAwardRuleServiceImpl extends ServiceImpl<PmsAwardRuleMapper, Pms
             pmsAwardRule.setTimes(times++);
         }else {
             pmsAwardRule = new PmsAwardRule();
+            pmsAwardRule.setUserId(userId);
+            pmsAwardRule.setTimes(4);
             pmsAwardRule.setTimes(4);
             pmsAwardRule.setStatus("0");
             pmsAwardRule.setPlatformFlag("3");
@@ -139,6 +141,8 @@ public class PmsAwardRuleServiceImpl extends ServiceImpl<PmsAwardRuleMapper, Pms
         PmsAwardRule pmsAwardRule = getOne(wrapper);
         if (Objects.isNull(pmsAwardRule)){
             pmsAwardRule = new PmsAwardRule();
+            pmsAwardRule.setSourceId(sourceId);
+            pmsAwardRule.setUserId(userId);
             pmsAwardRule.setTimes(4);
             pmsAwardRule.setStatus("0");
             pmsAwardRule.setPlatformFlag("3");

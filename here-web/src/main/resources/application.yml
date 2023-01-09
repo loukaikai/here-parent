@@ -1,11 +1,18 @@
 server:
-  port: 8086
+  port: 9999
+  ssl:
+    # key-alias: tomcat
+    # 填写pfx-password.txt文件内的密码。
+    key-store-password: c4u9j47q
+    key-store-type: PKCS12
+    #您需要使用实际的证书名称替换domain_name.pfx。
+    key-store: classpath:8872904_wxapi.qingdu-inc.top.pfx
 
 spring:
   application:
     name: here-web
   profiles:
-    active: dev
+    active: prod
 #  main:
 #    allow-circular-references: true
   mvc:
@@ -54,6 +61,7 @@ secure:
       - /wx/order/create
       - /nameplate/*
       - /nameplate
+      - /wxinface/*
 #      - /admin/register
 #      - /admin/info
 #      - /admin/logout
