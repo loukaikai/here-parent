@@ -154,6 +154,4 @@ public class LoginController {
         map.put("code",code);
         return restTemplateUtil.PostRequest(JSONObject.parseObject(map.toString()),dyLoginUrl);
     }
-
-
 }

@@ -1,8 +1,7 @@
 package com.here.modules.oauth.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import java.util.Date;
 import io.swagger.annotations.ApiModel;
@@ -64,8 +63,17 @@ public class HereUser implements Serializable {
     @ApiModelProperty("小程序openid")
     private String openId;
 
+    // 没有区号的手机号
+    @ApiModelProperty("没有区号的手机号")
+    private String purePhoneNumber;
+
+    @ApiModelProperty("区号")
+    private String countryCode;
+
+    @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
+    @TableField(fill = FieldFill.UPDATE)
     private Date updateTime;
 
 

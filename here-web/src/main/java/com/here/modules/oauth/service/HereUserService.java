@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.here.common.api.ResultObject;
 import com.here.domain.AdminUserDetails;
 import com.here.modules.oauth.entity.HereUser;
+import com.here.modules.oauth.vo.InitVO;
 import com.here.modules.oauth.vo.WriteInviCodeVO;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,6 +22,8 @@ import java.util.List;
 public interface HereUserService extends IService<HereUser> {
 
     Object getUser();
+
+    ResultObject<Object> initUser(InitVO initVO);
 
     Boolean writeCode(WriteInviCodeVO writeInviCodeVO);
 

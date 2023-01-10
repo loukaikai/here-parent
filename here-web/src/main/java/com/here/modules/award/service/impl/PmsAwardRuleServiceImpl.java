@@ -59,16 +59,13 @@ public class PmsAwardRuleServiceImpl extends ServiceImpl<PmsAwardRuleMapper, Pms
         // 分布式锁
         if (Objects.nonNull(pmsAwardRule)){
             int times = pmsAwardRule.getTimes();
-            pmsAwardRule.setTimes(times++);
+            times = times+1;
+            pmsAwardRule.setTimes(times);
+            updateById(pmsAwardRule);
         }else {
-            pmsAwardRule = new PmsAwardRule();
-            pmsAwardRule.setUserId(userId);
-            pmsAwardRule.setTimes(4);
-            pmsAwardRule.setTimes(4);
-            pmsAwardRule.setStatus("0");
-            pmsAwardRule.setPlatformFlag("3");
+            throw new BizException("抽奖次数数据为空请初始化");
         }
-        save(pmsAwardRule);
+        LOGGER.info("添加抽奖次数服务======end");
       //  PmsAwardRule pmsAwardRule = new PmsAwardRule();
         resultObject.setMessage("添加抽奖次数完成");
         resultObject.setSuccess(true);
@@ -140,6 +137,7 @@ public class PmsAwardRuleServiceImpl extends ServiceImpl<PmsAwardRuleMapper, Pms
         lambda.eq(PmsAwardRule::getUserId,userId).eq(PmsAwardRule::getSourceId, sourceId);
         PmsAwardRule pmsAwardRule = getOne(wrapper);
         if (Objects.isNull(pmsAwardRule)){
+            LOGGER.info("查询用户抽奖次数服务为空：初始化抽奖次数");
             pmsAwardRule = new PmsAwardRule();
             pmsAwardRule.setSourceId(sourceId);
             pmsAwardRule.setUserId(userId);
@@ -147,8 +145,10 @@ public class PmsAwardRuleServiceImpl extends ServiceImpl<PmsAwardRuleMapper, Pms
             pmsAwardRule.setStatus("0");
             pmsAwardRule.setPlatformFlag("3");
             saveOrUpdate(pmsAwardRule);
+            LOGGER.info("查询用户抽奖次数初始化完成");
         }
         //  PmsAwardRule pmsAwardRule = new PmsAwardRule();
+        LOGGER.info("查询用户抽奖次数完成");
         resultObject.setMessage("查询用户抽奖次数完成");
         resultObject.setSuccess(true);
         resultObject.setData(pmsAwardRule);

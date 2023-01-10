@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.here.common.aop.Log;
 import com.here.common.api.ResultObject;
 import com.here.common.utils.RestTemplateUtil;
+import com.here.modules.oauth.dto.PhoneInfo;
+import com.here.modules.wxshopinface.service.WxInfaceService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +37,16 @@ public class WxInfaceController {
     @Autowired
     private RestTemplateUtil restTemplateUtil;
 
+    @Autowired
+    private WxInfaceService wxInfaceService;
+
     /**
      * 获取token
      */
     @PostMapping(value = "getWxToken")
     @ResponseBody
     @Log
-    public String getWxToken(@RequestBody JSONObject jsonObject) {
+    public String getWxToken() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("appid",appId);
         map.put("secret",secret);
@@ -49,6 +54,17 @@ public class WxInfaceController {
         String str = restTemplateUtil.getRequest(map,accessTokn);
         return str;
     }
+
+    @GetMapping("/getUserPhone")
+    @ResponseBody
+    @Log
+    public ResultObject<PhoneInfo> weChartLogin(
+            // @Validated @RequestBody WechatVO wechatVO
+            @RequestParam("code") String code) {
+        return wxInfaceService.getPhoneNum(code);
+        // map.put("firstLogin",false);
+    }
+
 
 
     @ApiOperation("获取优惠券")
