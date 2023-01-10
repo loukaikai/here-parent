@@ -1,13 +1,3 @@
-server:
-  port: 9999
-  ssl:
-    # key-alias: tomcat
-    # 填写pfx-password.txt文件内的密码。
-    key-store-password: c4u9j47q
-    key-store-type: PKCS12
-    #您需要使用实际的证书名称替换domain_name.pfx。
-    key-store: classpath:8872904_wxapi.qingdu-inc.top.pfx
-
 spring:
   application:
     name: here-web
@@ -55,13 +45,12 @@ secure:
       - /favicon.ico
       - /actuator/**
       - /druid/**
-      - /login/weChart
-      - /login/weauthlogi
-      - /login/getWxToken
+      - /login/**
       - /wx/order/create
       - /nameplate/*
       - /nameplate
       - /wxinface/*
+      - /award/**
 #      - /admin/register
 #      - /admin/info
 #      - /admin/logout
