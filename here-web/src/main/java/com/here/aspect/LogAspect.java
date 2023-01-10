@@ -94,7 +94,7 @@ public class LogAspect {
             if (e instanceof BizException) {
                 BizException bizException = (BizException) e;
                // result = JsonData.buildCodeAndMsg(bizException.getCode(), bizException.getMessage());
-                logDO.setErrorText(result.toString());
+                logDO.setErrorText(bizException.getMessage());
             } /*else if (e instanceof RpvException) {
                 RpvException ve = (RpvException) e;
                 result = JsonData.buildCodeAndMsg(ve.getCode(), ve.getMessage());
