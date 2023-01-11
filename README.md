@@ -9,7 +9,7 @@
 
 ## 简介
 
-here-parent是一款基于SpringBoot+MyBatis-Plus的快速开发脚手架，拥有完整的权限管理功能，可对接Vue前端，开箱即用。
+here-parent是一款基于SpringBoot+MyBatis-Plus的包含微信小程序的商城系统，前期以单体形式开发，后期改为微服务。包含的服务有：通讯系统，商城系统，营销系统，用户系统
 
 ## 项目演示
 
@@ -46,7 +46,7 @@ here-parent项目可无缝对接`mall-admin-web`前端项目，秒变权限管�
 
 ### 环境搭建
 
-简化依赖服务，只需安装最常用的MySql和Redis服务即可，服务安装具体参考[mall在Windows环境下的部署](https://www.macrozheng.com/mall/deploy/mall_deploy_windows.html) ，数据库中需要导入`mall_tiny.sql`脚本。
+库中需要导入`here.sql`脚本。
 
 ### 开发规约
 
@@ -89,33 +89,17 @@ resources
 └── generator.properties -- MyBatis-Plus代码生成器配置
 ```
 
-#### 接口定义规则
 
-- 创建表记录：POST /{控制器路由名称}/create
-
-- 修改表记录：POST /{控制器路由名称}/update/{id}
-
-- 删除指定表记录：POST /{控制器路由名称}/delete/{id}
-
-- 分页查询表记录：GET /{控制器路由名称}/list
-
-- 获取指定记录详情：GET /{控制器路由名称}/{id}
-
-- 具体参数及返回结果定义可以运行代码查看Swagger-UI的Api文档：http://localhost:8080/swagger-ui/
-
-![](http://img.macrozheng.com/mall/project/mall_tiny_start_02.png)
 
 ### 项目运行
 
-直接运行启动类`MallTinyApplication`的`main`函数即可。
+直接运行启动类`HereWebApplication`的`main`函数即可。
 
 ### 业务代码开发流程
 
 #### 创建业务表
 
-> 创建好`pms`模块的所有表，需要注意的是一定要写好表字段的`注释`，这样实体类和接口文档中就会自动生成字段说明了。
 
-![](http://img.macrozheng.com/mall/project/mall_tiny_start_03.png)
 
 #### 使用代码生成器
 
