@@ -1,6 +1,7 @@
 package com.here.modules.badge.service;
 
 import com.here.modules.badge.dto.BadgeDTO;
+import com.here.modules.badge.vo.BadgeVO;
 
 import java.util.List;
 
@@ -20,6 +21,6 @@ public interface BadgeService {
      * @param userId 用户ID
      * @return 徽章名称列表
      */
-    List<String> getBadgeByUserId(Integer userId);
+    List<BadgeVO> getBadgeByUserId(Integer userId);
 
 }

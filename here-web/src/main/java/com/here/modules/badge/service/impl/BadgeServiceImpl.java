@@ -8,6 +8,7 @@ import com.here.modules.badge.dto.BadgeDTO;
 import com.here.modules.badge.mapper.BadgeDO;
 import com.here.modules.badge.mapper.BadgeMapper;
 import com.here.modules.badge.service.BadgeService;
+import com.here.modules.badge.vo.BadgeVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,21 +37,31 @@ public class BadgeServiceImpl implements BadgeService {
     }
 
     @Override
-    public List<String> getBadgeByUserId(Integer userId) {
+    public List<BadgeVO> getBadgeByUserId(Integer userId) {
         LambdaQueryWrapper<HereAwardUsrDetail> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(HereAwardUsrDetail::getUserId, userId).ne(HereAwardUsrDetail::getBadgeId, -1);
         List<HereAwardUsrDetail> hereAwardUsrDetails = Optional.ofNullable(hereAwardUsrDetailMapper.selectList(wrapper)).orElse(Collections.emptyList());
         if (hereAwardUsrDetails.isEmpty()) {
             throw new BizException("用户尚未获得任何徽章");
         } else {
-            List<String> badgeNames = new ArrayList<>();
+            List<BadgeVO> badgeVOs = new ArrayList<>();
+            Map<Integer, Integer> badgeAmount = new HashMap<>();
             for (HereAwardUsrDetail hereAwardUsrDetail : hereAwardUsrDetails) {
-                BadgeDO badgeDO = badgeMapper.selectById(hereAwardUsrDetail.getBadgeId());
-                if (Objects.nonNull(badgeDO)) {
-                    badgeNames.add(badgeDO.getName());
-                }
+                Integer amount = badgeAmount.getOrDefault(hereAwardUsrDetail.getBadgeId(), 0);
+                amount++;
+                badgeAmount.put(hereAwardUsrDetail.getBadgeId(), amount);
             }
-            return badgeNames;
+            badgeAmount.forEach((id, amount) -> {
+                BadgeVO badgeVO = new BadgeVO();
+                badgeVO.setBadgeId(id);
+                BadgeDO badgeDO = badgeMapper.selectById(id);
+                if (Objects.nonNull(badgeDO)) {
+                    badgeVO.setBadgeName(badgeDO.getName());
+                }
+                badgeVO.setBadgeAmount(amount);
+                badgeVOs.add(badgeVO);
+            });
+            return badgeVOs;
         }
     }
 

@@ -3,6 +3,7 @@ package com.here.modules.badge.controller;
 import com.here.common.api.ResultObject;
 import com.here.modules.badge.dto.BadgeDTO;
 import com.here.modules.badge.service.BadgeService;
+import com.here.modules.badge.vo.BadgeVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +36,7 @@ public class BadgeController {
      * @return 用户徽章名称
      */
     @GetMapping("/user")
-    public ResultObject<List<String>> getBadgeByUserId(@RequestParam Integer userId) {
+    public ResultObject<List<BadgeVO>> getBadgeByUserId(@RequestParam Integer userId) {
         return ResultObject.success(badgeService.getBadgeByUserId(userId));
     }
 
