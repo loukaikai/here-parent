@@ -20,18 +20,17 @@ public class BadgeController {
     private BadgeService badgeService;
 
     /**
-     * 增加徽章
+     * 增加徽章类型
      * @param badgeDTO 徽章信息
-     * @return 响应消息
+     * @return 徽章ID
      */
     @PostMapping
-    public ResultObject<Void> addBadge(@RequestBody BadgeDTO badgeDTO) {
-        badgeService.addBadge(badgeDTO);
-        return ResultObject.success(null);
+    public ResultObject<Integer> addBadge(@RequestBody BadgeDTO badgeDTO) {
+        return ResultObject.success(badgeService.addBadge(badgeDTO));
     }
 
     /**
-     * 获取用户徽章
+     * 获取用户已获得徽章名称
      * @param userId 用户ID
      * @return 用户徽章名称
      */

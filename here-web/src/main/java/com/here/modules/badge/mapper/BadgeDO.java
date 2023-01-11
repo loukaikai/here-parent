@@ -24,11 +24,6 @@ public class BadgeDO extends BaseDO {
     private String name;
 
     /**
-     * 徽章所属用户ID
-     */
-    private Integer userId;
-
-    /**
      * 徽章url
      */
     private String badgeUrl;

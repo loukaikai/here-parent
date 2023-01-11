@@ -13,10 +13,10 @@ public interface BadgeService {
      * 增加徽章
      * @param badgeDTO 徽章信息
      */
-    void addBadge(BadgeDTO badgeDTO);
+    Integer addBadge(BadgeDTO badgeDTO);
 
     /**
-     * 获取用户徽章
+     * 获取用户已获得徽章名称
      * @param userId 用户ID
      * @return 徽章名称列表
      */

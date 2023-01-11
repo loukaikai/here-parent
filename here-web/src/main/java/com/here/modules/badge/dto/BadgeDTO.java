@@ -25,10 +25,4 @@ public class BadgeDTO implements Serializable {
      */
     private String badgeUrl;
 
-    /**
-     * 用户手机号
-     */
-    @NotNull(message = "手机号不能为空")
-    private String userPhone;
-
 }

@@ -40,17 +40,6 @@ create table here_goods_detail
     update_time      datetime       null
 ) comment '商品规格';
 
-create table here_nameplate_power
-(
-    id               int auto_increment
-        primary key,
-    user_id          int         null comment '所属用户id',
-    power_user_id    int         null comment '助力用户id',
-    power_user_heads varchar(50) null comment '助力用户头像url',
-    create_time      datetime    null comment '助力时间'
-)
-    comment '铭牌助力';
-
 create table here_shop
 (
     id          int auto_increment
@@ -82,17 +71,6 @@ create table here_user
     update_time      datetime    null
 )
     comment '用户表';
-
-create table here_user_badge
-(
-    id          int      not null
-        primary key,
-    user_id     int      null,
-    badge_id    int      null comment '徽章id',
-    create_time datetime null comment '获取时间'
-)
-    comment '用户徽章关联表';
-
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
