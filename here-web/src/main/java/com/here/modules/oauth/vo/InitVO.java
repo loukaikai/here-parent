@@ -3,9 +3,12 @@ package com.here.modules.oauth.vo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 
 /**
  * @author loukaikai
@@ -20,9 +23,9 @@ import javax.validation.constraints.Size;
 public class InitVO {
 
     @ApiModelProperty(value = "用户Id")
-    @Size(min = 1, message = "用户id长度错误")
+    @Min(value = 1)
     @NotNull( message = "用户Id不能为空")
-    private int userId;
+    private Integer userId;
 
     private String code;
 }
