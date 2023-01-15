@@ -8,13 +8,7 @@ import org.springframework.web.servlet.config.annotation.ContentNegotiationConfi
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @SpringBootApplication
-public class HereWebApplication extends WebMvcConfigurerAdapter {
-
-
-    @Override
-    public void configureContentNegotiation(ContentNegotiationConfigurer config) {
-        config.favorPathExtension(false);
-    }
+public class HereWebApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(HereWebApplication.class, args);
