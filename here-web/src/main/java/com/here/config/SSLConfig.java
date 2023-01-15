@@ -1,3 +1,4 @@
+
 package com.here.config;
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
@@ -7,12 +8,14 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
 /**
  * SSLConfig
  *
  * @author loukaikai
  * @since 2019/12/25
  */
+
 @Configuration
 public class SSLConfig {
     //SSLConfig
