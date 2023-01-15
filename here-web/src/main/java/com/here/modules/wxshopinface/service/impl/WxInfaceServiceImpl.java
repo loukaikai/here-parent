@@ -86,7 +86,7 @@ public class WxInfaceServiceImpl implements WxInfaceService {
         ResultObject<String> resultStr = getAccToken();
         String access_token = null;
         if (resultStr.isSuccess()){
-            access_token = (String) resultObject.getData();
+            access_token = (String) resultStr.getData();
         }
 
         if (StringUtils.isBlank(access_token)){
@@ -94,7 +94,7 @@ public class WxInfaceServiceImpl implements WxInfaceService {
         }
         HashMap<String, String> phoneNumMap = new HashMap<>();
         phoneNumMap.put("code",code);
-        String phoneNum = HttpClientUtil.doPost("https://api.weixin.qq.com/wxa/business/getuserphonenumber?authorizer_access_token="+ access_token, phoneNumMap);
+        String phoneNum = HttpClientUtil.doPost("https://api.weixin.qq.com/wxa/business/getuserphonenumber?access_token="+ access_token, phoneNumMap);
         LOGGER.info("微信返回:[{}]", phoneNum);
         JSONObject phoneNumResData = new JSONObject(phoneNum);
 
