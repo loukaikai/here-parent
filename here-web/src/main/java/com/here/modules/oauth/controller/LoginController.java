@@ -108,6 +108,7 @@ public class LoginController {
     @GetMapping("/weChart")
     @ResponseBody
     @Log
+    @ApiOperation("微信登录")
     public ResultObject<UserInfoDTO> weChartLogin(
             // @Validated @RequestBody WechatVO wechatVO
             @RequestParam("code") String code) {
