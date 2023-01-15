@@ -49,7 +49,7 @@ public class GlobalExceptionHandler {
     public ResultObject Bizxceptionhandle(BizException e) {
         logger.error("发生业务异常！原因是:",e);
         if (e.getErrorCode() != null) {
-            return ResultObject.failed(e.getErrorCode());
+            return ResultObject.failed(e.getErrorCode(), e.getMessage());
         }
         return ResultObject.failed(e.getMessage());
     }
