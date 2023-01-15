@@ -1,5 +1,7 @@
 package com.here.common.api;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,12 +10,17 @@ import java.io.Serializable;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel(value="统一返回值", description="统一返回值")
 public class ResultObject<T> implements Serializable {
 
-    private Object data;
+    @ApiModelProperty(value = "返回数据")
+    private T data;
+    @ApiModelProperty(value = "返回信息")
     private String message;
+    @ApiModelProperty(value = "响应值")
     private long code;
 
+    @ApiModelProperty(value = "是否处理成功")
     private boolean isSuccess = true;
 
     protected ResultObject(long code, String message, T data, boolean isSuccess) {
@@ -103,11 +110,11 @@ public class ResultObject<T> implements Serializable {
         return new ResultObject<T>(ResultCode.FORBIDDEN.getCode(), ResultCode.FORBIDDEN.getMessage(), data, false);
     }
 
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 

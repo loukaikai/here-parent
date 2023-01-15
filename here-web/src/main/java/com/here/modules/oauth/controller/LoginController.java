@@ -10,12 +10,15 @@ import com.here.common.api.ResultObject;
 import com.here.common.utils.HttpClientUtil;
 import com.here.common.utils.JwtTokenUtil;
 import com.here.common.utils.RestTemplateUtil;
+import com.here.modules.oauth.dto.UserInfoDTO;
 import com.here.modules.oauth.dto.WxchatDtailDTO;
 import com.here.modules.oauth.entity.HereUser;
 import com.here.modules.oauth.service.HereUserService;
 import com.here.modules.oauth.vo.ThirdOauthVO;
 import com.here.modules.oauth.vo.WechatVO;
 import com.here.modules.oauth.vo.WriteInviCodeVO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.request.AuthRequest;
 import me.zhyd.oauth.request.AuthWeChatEnterpriseThirdQrcodeRequest;
@@ -36,6 +39,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/login")
+@Api(tags = "登录模块")
 public class LoginController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
@@ -86,6 +90,7 @@ public class LoginController {
     @PostMapping(value = "getWxToken")
     @ResponseBody
     @Log
+    @ApiOperation("获取token")
     public String getWxToken(@RequestBody JSONObject jsonObject) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("appid",appId);
@@ -103,7 +108,7 @@ public class LoginController {
     @GetMapping("/weChart")
     @ResponseBody
     @Log
-    public ResultObject weChartLogin(
+    public ResultObject<UserInfoDTO> weChartLogin(
             // @Validated @RequestBody WechatVO wechatVO
             @RequestParam("code") String code) {
 
