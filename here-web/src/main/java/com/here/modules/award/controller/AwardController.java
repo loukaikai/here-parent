@@ -9,6 +9,7 @@ import com.here.modules.award.vo.AddAwardCountVO;
 import com.here.modules.award.vo.DeAwardCountVO;
 import com.here.modules.order.dto.HereOrdersDTO;
 import com.here.modules.order.entity.HereOrders;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
@@ -27,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/award")
-@Tag(name = "AwardController",description = "奖励管理")
+@Api(value = "AwardController", tags = "奖励管理")
 public class AwardController {
 
     private static final Logger logger = LoggerFactory.getLogger(AwardController.class);
