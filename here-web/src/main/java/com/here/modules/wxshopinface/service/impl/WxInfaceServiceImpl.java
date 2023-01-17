@@ -1,6 +1,7 @@
 package com.here.modules.wxshopinface.service.impl;
 
 import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.here.common.api.ResultObject;
 import com.here.common.exception.BizException;
@@ -92,12 +93,19 @@ public class WxInfaceServiceImpl implements WxInfaceService {
         if (StringUtils.isBlank(access_token)){
             throw new BizException("accss_token为空");
         }
-        HashMap<String, String> phoneNumMap = new HashMap<>();
-        phoneNumMap.put("code",code);
-        String phoneNum = HttpClientUtil.doPost("https://api.weixin.qq.com/wxa/business/getuserphonenumber?access_token="+ access_token, phoneNumMap);
+        JSONObject jsonObject = JSONUtil.createObj().set("code", code);
+        String url = "https://api.weixin.qq.com/wxa/business/getuserphonenumber?access_token="+access_token;
+        String phoneNum = HttpClientUtil.doPostJson(url, jsonObject.toString());
+
         LOGGER.info("微信返回:[{}]", phoneNum);
         JSONObject phoneNumResData = new JSONObject(phoneNum);
-
+        String errmsg = phoneNumResData.getStr("errmsg");
+        if (!StringUtils.isBlank(errmsg) && !errmsg.equals("ok")){
+            resultObject.setSuccess(false);
+            resultObject.setMessage("失败原因：[{}]"+errmsg);
+            LOGGER.info("获取微信用户手机号失败原因=======end");
+            return resultObject;
+        }
         PhoneInfo phoneInfo = phoneNumResData.get("phone_info", PhoneInfo.class);
         resultObject.setData(phoneInfo);
         resultObject.setMessage("获取微信用户手机号完成");
