@@ -44,7 +44,16 @@ public class PmsBrand implements Serializable {
     @ApiModelProperty("排序")
     private Integer sort;
 
+    @ApiModelProperty("创建人")
+    private Integer createdBy;
+
     @ApiModelProperty("创建时间")
-    private Date createTime;
+    private Date createdTime;
+
+    @ApiModelProperty("更新人")
+    private Integer updatedBy;
+
+    @ApiModelProperty("更新时间")
+    private Date updatedTime;
 
 }
