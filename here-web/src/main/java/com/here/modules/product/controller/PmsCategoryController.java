@@ -27,7 +27,10 @@ public class PmsCategoryController {
     @ApiOperation("分页查询分类列表")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public ResultObject<CommonPage<PmsCategory>> list(@RequestParam(value = "keyword", required = false) String keyword, @RequestParam(value = "showStatus", required = false) Integer showStatus, @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+    public ResultObject<CommonPage<PmsCategory>> list(@RequestParam(value = "keyword", required = false) String keyword,
+                                                      @RequestParam(value = "showStatus", required = false) Integer showStatus,
+                                                      @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                                      @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
         Page<PmsCategory> brandList = pmsCategoryService.list(keyword, showStatus, pageNum, pageSize);
         return ResultObject.success(CommonPage.restPage(brandList));
     }
@@ -55,24 +58,10 @@ public class PmsCategoryController {
         return ResultObject.failed("分类保存失败");
     }
 
-    @ApiOperation("分类状态修改")
-    @RequestMapping("/update/status")
-    public ResultObject<Integer> updateStatus(@Validated @RequestBody PmsCategory category) {
-        boolean success = pmsCategoryService.updateById(category);
-        if (success) {
-            return ResultObject.success(null);
-        }
-
-        return ResultObject.failed("状态修改失败");
-    }
-
     @ApiOperation("分类删除")
-    @RequestMapping("/delete")
+    @RequestMapping(value = "/delete",method = RequestMethod.POST)
     public ResultObject<Void> delete(@RequestBody List<Long> ids) {
-        boolean success = pmsCategoryService.removeBatchByIds(ids);
-        if (success) {
-            return ResultObject.success(null);
-        }
-        return ResultObject.failed("分类删除失败");
+        pmsCategoryService.removeMenuByIds(ids);
+        return ResultObject.success(null);
     }
 }

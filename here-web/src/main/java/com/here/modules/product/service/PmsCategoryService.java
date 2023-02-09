@@ -29,4 +29,17 @@ public interface PmsCategoryService extends IService<PmsCategory> {
      * @return 树形展示分类
      */
     List<PmsCategory> listWithTree();
+
+    /**
+     * 根据id删除菜单
+     * @param ids id集合
+     */
+    void removeMenuByIds(List<Long> ids);
+
+    /**
+     * 找到catelogId的完整路径；
+     * @param catelogId 分类id
+     * @return 完整路径
+     */
+    Long[] findCatelogPath(Long catelogId);
 }

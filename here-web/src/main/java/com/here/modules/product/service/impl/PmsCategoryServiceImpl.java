@@ -10,9 +10,7 @@ import com.here.modules.product.mapper.PmsCategoryMapper;
 import com.here.modules.product.service.PmsCategoryService;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -50,6 +48,7 @@ public class PmsCategoryServiceImpl extends ServiceImpl<PmsCategoryMapper, PmsCa
 
     /**
      * 递归查询所有菜单的子菜单
+     *
      * @param node 节点对象
      * @param list ；列表对象
      * @return 树对象
@@ -59,5 +58,28 @@ public class PmsCategoryServiceImpl extends ServiceImpl<PmsCategoryMapper, PmsCa
                 .peek(categoryEntity -> categoryEntity.setChildren(getChildrens(categoryEntity, list)))
                 .sorted(Comparator.comparingInt(menu -> (menu.getSort() == null ? 0 : menu.getSort())))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void removeMenuByIds(List<Long> ids) {
+        baseMapper.deleteBatchIds(ids);
+    }
+
+    @Override
+    public Long[] findCatelogPath(Long catelogId) {
+        List<Long> paths = new ArrayList<>();
+        List<Long> parentPath = findParentPath(catelogId, paths);
+        Collections.reverse(parentPath);
+        return parentPath.toArray(new Long[0]);
+    }
+
+    private List<Long> findParentPath(Long catelogId, List<Long> paths) {
+        //收集当前节点id
+        paths.add(catelogId);
+        PmsCategory byId = this.getById(catelogId);
+        if (byId.getParentId() != 0) {
+            findParentPath(byId.getParentId(), paths);
+        }
+        return paths;
     }
 }
