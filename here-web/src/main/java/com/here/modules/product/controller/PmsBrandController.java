@@ -45,21 +45,13 @@ public class PmsBrandController {
     @ApiOperation("品牌保存")
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ResultObject<Void> save(@Validated @RequestBody PmsBrand brand) {
-        boolean success = pmsBrandService.saveOrUpdate(brand);
-        if (success) {
-            return ResultObject.success(null);
-        }
-
-        return ResultObject.failed("品牌保存失败");
+        return pmsBrandService.saveOrUpdate(brand) ? ResultObject.success(null) : ResultObject.failed("品牌保存失败");
     }
 
     @ApiOperation("品牌删除")
     @RequestMapping("/delete")
     public ResultObject<Void> delete(@RequestBody List<Long> brandIds) {
-        boolean success = pmsBrandService.removeBatchByIds(brandIds);
-        if (success) {
-            return ResultObject.success(null);
-        }
-        return ResultObject.failed("品牌删除失败");
+        return pmsBrandService.removeBatchByIds(brandIds) ? ResultObject.success(null)
+                : ResultObject.failed("品牌删除失败");
     }
 }
