@@ -1,9 +1,5 @@
 package com.here.modules.product.service.impl;
 
-import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.here.modules.product.entity.PmsCategory;
 import com.here.modules.product.mapper.PmsCategoryMapper;
@@ -21,19 +17,6 @@ import java.util.stream.Collectors;
  */
 @Service
 public class PmsCategoryServiceImpl extends ServiceImpl<PmsCategoryMapper, PmsCategory> implements PmsCategoryService {
-    @Override
-    public Page<PmsCategory> list(String keyword, Integer showStatus, int pageNum, int pageSize) {
-        Page<PmsCategory> page = new Page<>(pageNum, pageSize);
-        QueryWrapper<PmsCategory> wrapper = new QueryWrapper<>();
-        LambdaQueryWrapper<PmsCategory> lambda = wrapper.lambda();
-        if (StrUtil.isNotEmpty(String.valueOf(keyword))) {
-            lambda.eq(PmsCategory::getName, keyword);
-        }
-        if (StrUtil.isNotEmpty(String.valueOf(showStatus))) {
-            lambda.and(queryWrapper -> queryWrapper.eq(PmsCategory::getShowStatus, showStatus));
-        }
-        return page(page, wrapper);
-    }
 
     @Override
     public List<PmsCategory> listWithTree() {
