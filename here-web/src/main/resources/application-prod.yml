@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://121.43.178.221:3306/here_web?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
+    url: jdbc:mysql://121.43.178.221:3306/here_web?useUnicode=true&characterEncoding=utf-8&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai&useSSL=false
     username: root
     password: Here123456.
   redis:
