@@ -8,7 +8,10 @@ spring:
     database: 0 # Redis数据库索引（默认为0）
     port: 6379 # Redis服务器连接端口
     password: 123456 # Redis服务器连接密码（默认为空）
-    timeout: 3000ms # 连接超时时间（毫秒）
+    timeout: 3000ms # 连接超时时间（毫秒
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
 logging:
   level:
@@ -17,7 +20,7 @@ logging:
 
 wechart:
   appid: wx209e3f1fc444d6e1
-  secret: ed955677170d2a4829e60a7bbdfd42f8
+  secret: 97e2db0e59e0cbf08e606490ad228ac4
   login_url: https://api.weixin.qq.com/sns/jscode2session
   acctoken_url:  https://api.weixin.qq.com/cgi-bin/token
   redirect_uri:

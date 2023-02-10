@@ -3,6 +3,7 @@ package com.here.modules.oauth.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.here.common.api.ResultObject;
 import com.here.domain.AdminUserDetails;
+import com.here.modules.oauth.dto.UserInfoDTO;
 import com.here.modules.oauth.entity.HereUser;
 import com.here.modules.oauth.vo.InitVO;
 import com.here.modules.oauth.vo.WriteInviCodeVO;
@@ -23,7 +24,7 @@ public interface HereUserService extends IService<HereUser> {
 
     Object getUser();
 
-    ResultObject<Object> initUser(InitVO initVO);
+    ResultObject<HereUser> initUser(InitVO initVO);
 
     Boolean writeCode(WriteInviCodeVO writeInviCodeVO);
 
@@ -34,6 +35,6 @@ public interface HereUserService extends IService<HereUser> {
 
     UserDetails loadUserByHereCod(String wechatNo);
 
-    ResultObject<Object> weChartLogin(String openId);
+    ResultObject<UserInfoDTO> weChartLogin(String openId);
 
 }

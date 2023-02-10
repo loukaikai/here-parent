@@ -111,9 +111,10 @@ public class PmsAwardRuleServiceImpl extends ServiceImpl<PmsAwardRuleMapper, Pms
             throw new BizException("用户抽奖次数小于扣减次数");
         }
         times = times - count;
+        LOGGER.info("times:[{}]",times);
         pmsAwardRule.setTimes(times);
 
-        saveOrUpdate(pmsAwardRule);
+        updateById(pmsAwardRule);
         //  PmsAwardRule pmsAwardRule = new PmsAwardRule();
         resultObject.setMessage("扣减抽奖次数完成");
         resultObject.setSuccess(true);

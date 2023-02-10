@@ -16,6 +16,7 @@ import com.here.domain.AdminUserDetails;
 import com.here.modules.award.entity.PmsAwardRule;
 import com.here.modules.oauth.controller.LoginController;
 import com.here.modules.oauth.dto.PhoneInfo;
+import com.here.modules.oauth.dto.UserInfoDTO;
 import com.here.modules.oauth.dto.WxchatDtailDTO;
 import com.here.modules.oauth.entity.HereUser;
 import com.here.modules.oauth.mapper.HereUserMapper;
@@ -103,26 +104,40 @@ public class HereUserServiceImpl extends ServiceImpl<HereUserMapper, HereUser> i
      *
      */
     @Override
-    public ResultObject<Object> initUser(InitVO initVO){
+    public ResultObject<HereUser> initUser(InitVO initVO){
         LOGGER.info("初始化用户信息");
-        ResultObject<Object> resultObject = new ResultObject<>();
+        ResultObject<HereUser> resultObject = new ResultObject<>();
         LambdaQueryWrapper<HereUser> lqw = Wrappers.lambdaQuery();
         lqw.eq(HereUser::getId, initVO.getUserId());
         HereUser user = getOne(lqw);
         if (StringUtils.isBlank(user.getPhone())){
             LOGGER.info("手机号为空，初始化用户手机号");
             String code = initVO.getCode();
-            ResultObject<PhoneInfo> phoneNum = wxInfaceService.getPhoneNum(initVO.getCode());
+            ResultObject<PhoneInfo> phoneNum = wxInfaceService.getPhoneNum(code);
             PhoneInfo phoneInfo = (PhoneInfo) phoneNum.getData();
             if (Objects.nonNull(phoneInfo)){
                 user.setPhone(phoneInfo.getPhoneNumber());
                 user.setPurePhoneNumber(phoneInfo.getPurePhoneNumber());
                 user.setCountryCode(phoneInfo.getCountryCode());
                 saveOrUpdate(user);
+                LOGGER.info("初始化用户手机号完成");
+            }else{
+                LOGGER.info("用户手机号查询失败");
+                resultObject.setMessage("用户手机号查询失败");
+                return resultObject;
             }
+        }
+
+        if (StringUtils.isBlank(user.getMyCode())){
+            LOGGER.info("我的邀请码为空，初始化邀请码");
+            user.setMyCode(AiDouGenerateUtils.toSerialCode(user.getId()));
+            saveOrUpdate(user);
+            LOGGER.info("初始化邀请码完成");
+
         }
         LOGGER.info("初始化用户信息完成");
         resultObject.setMessage("初始化用户信息完成");
+        resultObject.setData(user);
         return resultObject;
     }
 
@@ -176,7 +191,7 @@ public class HereUserServiceImpl extends ServiceImpl<HereUserMapper, HereUser> i
      * @return
      */
     @Override
-    public ResultObject<Object> weChartLogin(String code) {
+    public ResultObject<UserInfoDTO> weChartLogin(String code) {
         LOGGER.info("小程序code:[{}]", code);
         HashMap<String, String> map = new HashMap<>();
         map.put("appid", appId);
@@ -192,9 +207,7 @@ public class HereUserServiceImpl extends ServiceImpl<HereUserMapper, HereUser> i
 
         //接收微信接口服务 获取返回的参数
         String openid = jsonData.getStr("openid");
-        // String openid = "openid"+UUID.fastUUID();
         String sessionKey = jsonData.getStr("session_key");
-        //String sessionKey = "session_key"+UUID.fastUUID();
 
         // 5.根据返回的User实体类，判断用户是否是新用户，是的话，将用户信息存到数据库；
         LambdaQueryWrapper<HereUser> lqw = Wrappers.lambdaQuery();
@@ -204,22 +217,13 @@ public class HereUserServiceImpl extends ServiceImpl<HereUserMapper, HereUser> i
         if (user == null) {
             LOGGER.info("查询用户数据为空，用户信息入库");
             // 用户信息入库
-            // String nickName = rawDataJson.getString("nickName");
             String nickName = "nickName";
-            // String avatarUrl = rawDataJson.getString("avatarUrl");
             String avatarUrl = "avatarUrl";
             user = new HereUser();
             user.setOpenId(openid);
-         //   user.setWecharHeadsUrl(avatarUrl);
-         //   user.setWecharName(nickName);
-          //  user.setWechatNo(UUID.fastUUID().toString());
 
             user.setHereCode(UUID.fastUUID().toString());
-
             LOGGER.info("用户信息保存成功：usrId【{}】", user.getId());
-            if (null != user.getId() ){
-                user.setMyCode(AiDouGenerateUtils.toSerialCode(user.getId()));
-            }
 
         }else{
             LOGGER.info("用户信息更新：openId【{}】", openid);
@@ -237,12 +241,11 @@ public class HereUserServiceImpl extends ServiceImpl<HereUserMapper, HereUser> i
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String token = jwtTokenUtil.generateToken(wxchatDtailDTO);
-        Map<String, String> tokenMap = new HashMap<>();
-        tokenMap.put("token", token);
-        tokenMap.put("tokenHead", tokenHead);
-        tokenMap.put("user", new JSONObject(user).toString());
-        LOGGER.info("token:[{}] tokenHead:[{tokenHead}]", token);
-        return ResultObject.success(tokenMap);
+        UserInfoDTO userInfoDTO = new UserInfoDTO();
+        userInfoDTO.setToken(token);
+        userInfoDTO.setTokenHead(tokenHead);
+        userInfoDTO.setUser(user);
+        return ResultObject.success(userInfoDTO);
     }
 }
 

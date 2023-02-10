@@ -2,7 +2,7 @@ spring:
   application:
     name: here-web
   profiles:
-    active: prod
+    active: dev
 #  main:
 #    allow-circular-references: true
   mvc:
@@ -51,6 +51,7 @@ secure:
       - /nameplate
       - /wxinface/*
       - /award/**
+      - /user/**
 #      - /admin/register
 #      - /admin/info
 #      - /admin/logout
