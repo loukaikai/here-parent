@@ -5,6 +5,7 @@ import com.here.common.api.CommonPage;
 import com.here.common.api.ResultObject;
 import com.here.modules.product.entity.PmsBrand;
 import com.here.modules.product.service.PmsBrandService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -20,11 +21,12 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("product/brand")
+@Api(value = "PmsBrandController", tags = "商品品牌管理")
 public class PmsBrandController {
     @Autowired
     private PmsBrandService pmsBrandService;
 
-    @ApiOperation("分页查询品牌列表")
+    @ApiOperation(value = "分页查询品牌列表")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public ResultObject<CommonPage<PmsBrand>> list(@RequestParam(value = "keyword", required = false) String keyword,
@@ -36,19 +38,19 @@ public class PmsBrandController {
     }
 
 
-    @ApiOperation("根据品牌id查询品牌详情")
+    @ApiOperation(value = "根据品牌id查询品牌详情")
     @RequestMapping("/info/{brandId}")
     public ResultObject<PmsBrand> info(@PathVariable("brandId") Long brandId) {
         return ResultObject.success(pmsBrandService.getById(brandId));
     }
 
-    @ApiOperation("品牌保存")
+    @ApiOperation(value = "品牌保存")
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ResultObject<Void> save(@Validated @RequestBody PmsBrand brand) {
         return pmsBrandService.saveOrUpdate(brand) ? ResultObject.success(null) : ResultObject.failed("品牌保存失败");
     }
 
-    @ApiOperation("品牌删除")
+    @ApiOperation(value = "品牌删除")
     @RequestMapping("/delete")
     public ResultObject<Void> delete(@RequestBody List<Long> brandIds) {
         return pmsBrandService.removeBatchByIds(brandIds) ? ResultObject.success(null)
