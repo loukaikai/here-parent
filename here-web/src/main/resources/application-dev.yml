@@ -33,8 +33,8 @@ douyin:
   login_url: https://developer.toutiao.com/api/apps/v2/jscode2session
 
 oss:
-  access-key-id: LTAI5tAkC9AngTiJosTqkQ9B
-  access-key-secret: fstCE5SRl8GRYEyNsiBms6GUEsjOTY
+  access-key-id:
+  access-key-secret:
   endpoint: oss-cn-hangzhou.aliyuncs.com
   bucket-name: qd-resource
   folder-name: goods/image
