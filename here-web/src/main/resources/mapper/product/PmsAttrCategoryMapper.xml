@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.here.modules.product.mapper.PmsAttrCategoryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.here.modules.product.entity.PmsAttrCategory">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="attribute_count" property="attributeCount" />
+        <result column="param_count" property="paramCount" />
+    </resultMap>
+    <select id="getProductAttrInfo" resultType="com.here.modules.product.dto.ProductAttrInfo">
+        SELECT
+            pa.id  attributeId,
+            pac.id attributeCategoryId
+        FROM
+            pms_category_attribute_relation pcar
+                LEFT JOIN pms_attribute pa ON pa.id = pcar.product_attribute_id
+                LEFT JOIN pms_attribute_category pac ON pa.product_attribute_category_id = pac.id
+        WHERE
+            pcar.product_category_id = #{id}
+    </select>
+
+</mapper>

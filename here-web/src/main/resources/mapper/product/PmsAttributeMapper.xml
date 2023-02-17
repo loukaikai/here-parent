@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.here.modules.product.mapper.PmsAttributeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.here.modules.product.entity.PmsAttribute">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="attributeCount" property="searchType" />
+        <result column="select_type" property="selectType" />
+        <result column="input_type" property="inputType" />
+        <result column="input_list" property="inputList" />
+        <result column="filter_type" property="filterType" />
+        <result column="related_status" property="relatedStatus" />
+        <result column="handAdd_status" property="handAddStatus" />
+        <result column="type" property="type" />
+        <result column="attr_catelog_id" property="attrCatelogId" />
+        <result column="sort" property="sort" />
+        <result column="created_by" property="createdBy" />
+        <result column="created_time" property="createdTime" />
+        <result column="update_dy" property="updatedBy" />
+        <result column="updated_time" property="updatedTime" />
+    </resultMap>
+
+</mapper>
