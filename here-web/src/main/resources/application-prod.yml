@@ -41,3 +41,9 @@ server:
     #您需要使用实际的证书名称替换domain_name.pfx。
     key-store: classpath:8872904_wxapi.qingdu-inc.top.pfx
 
+oss:
+  access-key-id: LTAI5tAkC9AngTiJosTqkQ9B
+  access-key-secret: fstCE5SRl8GRYEyNsiBms6GUEsjOTY
+  endpoint: oss-cn-hangzhou.aliyuncs.com
+  bucket-name: qd-resource
+  folder-name: goods/image
