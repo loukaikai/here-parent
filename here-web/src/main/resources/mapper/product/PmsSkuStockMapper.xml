@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.here.modules.product.mapper.PmsSkuStockMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.here.modules.product.entity.PmsSkuStock">
+        <id column="id" property="id"/>
+        <result column="product_id" property="productId"/>
+        <result column="sku_code" property="skuCode"/>
+        <result column="price" property="price"/>
+        <result column="stock" property="stock"/>
+        <result column="low_stock" property="lowStock"/>
+        <result column="pic" property="pic"/>
+        <result column="sale" property="sale"/>
+        <result column="promotion_price" property="promotionPrice"/>
+        <result column="lock_stock" property="lockStock"/>
+        <result column="sp_data" property="spData"/>
+    </resultMap>
+
+    <select id="selectByPid" resultType="com.here.modules.product.entity.PmsSkuStock">
+        select id,
+        product_id,
+        sku_code,
+        price,
+        stock,
+        low_stock,
+        pic,
+        sale,
+        promotion_price,
+        lock_stock,
+        sp_data
+        from pms_sku_stock
+        where 1=1
+        <if test="pid!=null">
+            and product_id = #{pid}
+        </if>
+        <if test="keyword!=null and keyword!=''">
+            and sku_code like concat( '%' , #{keyword}, '%')
+        </if>
+    </select>
+
+    <insert id="replaceList">
+        REPLACE INTO pms_sku_stock (id,product_id, sku_code, price, stock, low_stock,pic, sale, sp_data) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id,jdbcType=BIGINT},
+            #{item.productId,jdbcType=BIGINT},
+            #{item.skuCode,jdbcType=VARCHAR},
+            #{item.price,jdbcType=DECIMAL},
+            #{item.stock,jdbcType=INTEGER},
+            #{item.lowStock,jdbcType=INTEGER},
+            #{item.pic,jdbcType=VARCHAR},
+            #{item.sale,jdbcType=INTEGER},
+            #{item.spData,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+
+</mapper>
+

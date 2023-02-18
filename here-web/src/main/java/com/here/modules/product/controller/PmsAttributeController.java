@@ -22,7 +22,6 @@ import java.util.List;
  * @since 2023/1/30
  */
 
-
 @RestController
 @RequestMapping("/productAttribute")
 @Api(value = "PmsAttributeController", tags = "商品属性管理")
