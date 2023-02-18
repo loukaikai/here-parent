@@ -1,6 +1,7 @@
 package com.here.modules.product.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.here.modules.product.dto.PmsAttrCategoryItem;
 import com.here.modules.product.dto.ProductAttrInfo;
 import com.here.modules.product.entity.PmsAttrCategory;
 import org.apache.ibatis.annotations.Mapper;
@@ -20,4 +21,9 @@ public interface PmsAttrCategoryMapper extends BaseMapper<PmsAttrCategory> {
      * 获取商品属性信息
      */
     List<ProductAttrInfo> getProductAttrInfo(@Param("id") Long productCategoryId);
+
+    /**
+     * 获取包含属性的商品属性分类
+     */
+    List<PmsAttrCategoryItem> getListWithAttr();
 }
