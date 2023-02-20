@@ -4,17 +4,40 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.here.modules.product.entity.PmsBrand">
-        <id column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="first_letter" property="firstLetter" />
-        <result column="logo" property="logo" />
-        <result column="description" property="description" />
-        <result column="show_status" property="showStatus" />
-        <result column="sort" property="sort" />
-        <result column="created_by" property="createdBy" />
-        <result column="created_time" property="createdTime" />
-        <result column="update_dy" property="updatedBy" />
-        <result column="updated_time" property="updatedTime" />
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="first_letter" property="firstLetter"/>
+        <result column="logo" property="logo"/>
+        <result column="description" property="description"/>
+        <result column="show_status" property="showStatus"/>
+        <result column="sort" property="sort"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="update_dy" property="updatedBy"/>
+        <result column="updated_time" property="updatedTime"/>
     </resultMap>
+
+
+    <update id="updateShowStatus">
+        update pms_brand
+        set show_status=#{status}
+        <where>
+            id in
+            <foreach collection="ids" item="id" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+        </where>
+    </update>
+
+    <update id="updateFactoryStatus">
+        update pms_brand
+        set factory_status=#{status}
+        <where>
+            id in
+            <foreach collection="ids" item="id" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+        </where>
+    </update>
 
 </mapper>
