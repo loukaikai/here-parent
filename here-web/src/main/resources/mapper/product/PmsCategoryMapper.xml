@@ -22,7 +22,8 @@
     <resultMap id="listWithChildrenMap" type="com.here.modules.product.dto.PmsCategoryWithChildrenItem"
                extends="com.here.modules.product.mapper.PmsCategoryMapper.BaseResultMap">
         <collection property="children" resultMap="com.here.modules.product.mapper.PmsCategoryMapper.BaseResultMap"
-                    columnPrefix="child_"></collection>
+                    columnPrefix="child_">
+        </collection>
     </resultMap>
 
     <select id="listWithChildren" resultMap="listWithChildrenMap">
