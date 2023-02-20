@@ -30,9 +30,32 @@
                c1.name,
                c2.id   child_id,
                c2.name child_name
-        from pms_product_category c1
-                 left join pms_product_category c2 on c1.id = c2.parent_id
+        from pms_category c1
+                 left join pms_category c2 on c1.id = c2.parent_id
         where c1.parent_id = 0
     </select>
+
+    <update id="updateNavStatus">
+        update pms_category
+        set nav_status=#{status}
+        <where>
+            id in
+            <foreach collection="ids" item="id" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+        </where>
+    </update>
+
+
+    <update id="updateShowStatus">
+        update pms_category
+        set show_status=#{status}
+        <where>
+            id in
+            <foreach collection="ids" item="id" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+        </where>
+    </update>
 
 </mapper>
