@@ -15,4 +15,6 @@ public interface WxInfaceService {
     public ResultObject<String> getAccToken();
 
     public ResultObject<PhoneInfo> getPhoneNum(String code);
+
+    public ResultObject<Object> getJsApi();
 }

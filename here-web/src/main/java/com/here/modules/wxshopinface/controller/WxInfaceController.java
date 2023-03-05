@@ -46,6 +46,7 @@ public class WxInfaceController {
     @PostMapping(value = "getWxToken")
     @ResponseBody
     @Log
+    @ApiOperation("获取token")
     public String getWxToken() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("appid",appId);
@@ -65,11 +66,16 @@ public class WxInfaceController {
         // map.put("firstLogin",false);
     }
 
-
-
     @ApiOperation("获取优惠券")
     @PostMapping("/getlist")
     public ResultObject<Void> getCouponList() {
+        //getCoupon
+        return ResultObject.success(null);
+    }
+
+    @ApiOperation("JSAPI下单")
+    @PostMapping("/getlist")
+    public ResultObject<Void> jsApi() {
         //getCoupon
         return ResultObject.success(null);
     }
