@@ -38,6 +38,9 @@ public class PmsBrand implements Serializable {
     @ApiModelProperty("品牌介绍")
     private String description;
 
+    @ApiModelProperty(value = "是否为品牌制造商：0->不是；1->是")
+    private Integer factoryStatus;
+
     @ApiModelProperty("显示状态[0-不显示；1-显示]")
     private Integer showStatus;
 

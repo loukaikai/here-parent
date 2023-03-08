@@ -2,10 +2,17 @@ package com.here.modules.product.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.here.modules.product.entity.PmsSkuStock;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * 商品库存管理mapper
+ * @author syj
+ * @since 2023/2/18
+ */
+@Mapper
 public interface PmsSkuStockMapper extends BaseMapper<PmsSkuStock> {
 
     /**

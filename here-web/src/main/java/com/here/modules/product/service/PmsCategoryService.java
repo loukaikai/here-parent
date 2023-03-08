@@ -1,7 +1,11 @@
 package com.here.modules.product.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.here.modules.product.dto.PmsCategoryParam;
+import com.here.modules.product.dto.PmsCategoryWithChildrenItem;
 import com.here.modules.product.entity.PmsCategory;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,21 +18,34 @@ import java.util.List;
 public interface PmsCategoryService extends IService<PmsCategory> {
 
     /**
-     * 查出所有的分类以及子分类，以树形结构组装起来
-     * @return 树形展示分类
+     * 创建商品分类
      */
-    List<PmsCategory> listWithTree();
+    @Transactional
+    int create(PmsCategoryParam pmsCategoryParam);
 
     /**
-     * 根据id删除菜单
-     * @param ids id集合
+     * 修改商品分类
      */
-    void removeMenuByIds(List<Long> ids);
+    @Transactional
+    int update(Long id, PmsCategoryParam pmsCategoryParam);
 
     /**
-     * 找到catelogId的完整路径；
-     * @param catelogId 分类id
-     * @return 完整路径
+     * 分页获取商品分类
      */
-    Long[] findCatelogPath(Long catelogId);
+    Page<PmsCategory> getList(Long parentId, Integer pageSize, Integer pageNum);
+
+    /**
+     * 批量修改导航状态
+     */
+    int updateNavStatus(List<Long> ids, Integer navStatus);
+
+    /**
+     * 批量修改显示状态
+     */
+    int updateShowStatus(List<Long> ids, Integer showStatus);
+
+    /**
+     * 以层级形式获取商品分类
+     */
+    List<PmsCategoryWithChildrenItem> listWithChildren();
 }
