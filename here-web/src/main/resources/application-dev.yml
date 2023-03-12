@@ -1,5 +1,5 @@
 server:
-  port: 8085
+  port: 8086
 spring:
   datasource:
     url: jdbc:mysql://118.31.17.219:3306/here_web?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
@@ -26,6 +26,8 @@ wechart:
   login_url: https://api.weixin.qq.com/sns/jscode2session
   acctoken_url:  https://api.weixin.qq.com/cgi-bin/token
   redirect_uri:
+  jsapi: https://api.mch.weixin.qq.com/v3/pay/transactions/jsapi # JSAPI下单
+
 douyin:
   client_key: 123
   client_secret: 123

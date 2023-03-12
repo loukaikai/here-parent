@@ -15,7 +15,7 @@ import lombok.Data;
 @ApiModel(value="AmountDTO", description="订单金额")
 public class AmountDTO {
 
-    @ApiModelProperty(value = "total", name = "总金额", notes = "订单总金额，单位为分")
+    @ApiModelProperty(value = "total", name = "总金额", required = true, notes = "订单总金额，单位为分")
     private int total;
 
     @ApiModelProperty(value = "currentcy", name = "货币类型", notes = "CNY：人民币，境内商户号仅支持人民币")
