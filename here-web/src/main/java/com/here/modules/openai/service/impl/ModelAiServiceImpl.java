@@ -1,9 +1,13 @@
 package com.here.modules.openai.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.here.common.api.ResultObject;
+import com.here.common.service.RedisService;
+import com.here.modules.openai.contants.OpenAiContants;
 import com.here.modules.openai.service.ModelAiService;
 import com.here.modules.openai.vo.ChatMessageVO;
 import com.here.modules.openai.vo.ChatOpenAiVO;
@@ -15,10 +19,12 @@ import com.theokanning.openai.completion.CompletionResult;
 import com.theokanning.openai.completion.chat.ChatCompletionChoice;
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import com.theokanning.openai.completion.chat.ChatMessage;
+import com.theokanning.openai.completion.chat.ChatMessageRole;
 import com.theokanning.openai.model.Model;
 import okhttp3.OkHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -56,6 +62,9 @@ public class ModelAiServiceImpl implements ModelAiService {
 
     @Value("${proxy.port}")
     private String port;
+
+    @Autowired
+    private RedisService redisService;
 
     /**
      * @return
@@ -107,18 +116,29 @@ public class ModelAiServiceImpl implements ModelAiService {
         LOGGER.info("chatGPT对话功能接口");
         LOGGER.info("参数模版：[{}]", JSONObject.toJSONString(chatOpenAiVO));
         ResultObject<List<ChatCompletionChoice>> resultObject = new ResultObject<>();
-        List<ChatMessage> messages = new ArrayList<>();
-        List<ChatMessageVO> chatMessageVO = chatOpenAiVO.getMessages();
-        chatMessageVO.stream().forEach(vo -> {
-            ChatMessage chatMessage = new ChatMessage();
-            BeanUtil.copyProperties(vo, chatMessage, true);
-            messages.add(chatMessage);
-        });
+
+        List<ChatMessage> chatMessages = new ArrayList<>();
+
+        // 获取模板配置，没有默认为gpt-3.5-turbo
+        LOGGER.info("获取模板配置，没有默认为gpt-3.5-turbo");
+
+        // 获取用户的聊天信息
+        LOGGER.info("获取用户的聊天信息");
+        String redisKey = OpenAiContants.CHANT_USER_PROMPT + chatOpenAiVO.getUser();
+        String json = redisService.get(redisKey).toString();
+        if (!StringUtils.isBlank(json)){
+            chatMessages = JSONArray.parseArray(json, ChatMessage.class);
+        }
+
+        ChatMessage chatMessage = new ChatMessage();
+        chatMessage.setRole(ChatMessageRole.USER.value());
+        chatMessage.setContent(chatOpenAiVO.getMessages());
+        chatMessages.add(chatMessage);
 
         ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest
                 .builder()
                 .model("gpt-3.5-turbo")
-                .messages(messages)
+                .messages(chatMessages)
                 .n(5)
                 .maxTokens(50)
                 .logitBias(new HashMap<>())
@@ -126,6 +146,10 @@ public class ModelAiServiceImpl implements ModelAiService {
 
         OpenAiService  openAiService = createOpenAiApi();
         List<ChatCompletionChoice> choices = openAiService.createChatCompletion(chatCompletionRequest).getChoices();
+        LOGGER.info("返回结果：[{}],将消息缓存进redis", JSONObject.toJSONString(choices));
+        chatMessages.add(choices.get(0).getMessage());
+        redisService.set(redisKey,  chatMessages, 15 * 60);
+        LOGGER.info("chatGPT对话功能接口完成");
         resultObject.setData(choices);
         return resultObject;
     }
