@@ -1,3 +1,4 @@
+/*
 package com.here.modules.wxshopinface.controller;
 
 import com.alibaba.fastjson.JSONObject;
@@ -21,13 +22,15 @@ import java.util.HashMap;
 import static com.here.modules.wxshopinface.contanst.WxInfaceConsta.accessTokn;
 import static com.here.modules.wxshopinface.contanst.WxInfaceConsta.getCoupon;
 
+*/
 /**
  * @author loukaikai
  * @version 1.0.0
  * @ClassName WxInfaceController.java
  * @Description TODO
  * @createTime 2023年01月05日 16:47:00
- */
+ *//*
+
 @RestController
 @RequestMapping("/wxinface")
 @Tag(name = "WxInfaceController",description = "微信接口管理")
@@ -44,9 +47,11 @@ public class WxInfaceController {
     @Autowired
     private WxInfaceService wxInfaceService;
 
-    /**
+    */
+/**
      * 获取token
-     */
+     *//*
+
     @PostMapping(value = "getWxToken")
     @ResponseBody
     @Log
@@ -91,3 +96,4 @@ public class WxInfaceController {
         return wxInfaceService.getParamDTO(prepayId);
     }
 }
+*/
