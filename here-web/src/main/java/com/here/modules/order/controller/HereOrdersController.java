@@ -2,7 +2,6 @@ package com.here.modules.order.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.here.common.api.CommonPage;
-import com.here.common.api.CommonResult;
 import com.here.common.api.ResultObject;
 import com.here.modules.order.dto.HereOrdersDTO;
 import com.here.modules.order.entity.HereOrders;
@@ -33,8 +32,7 @@ public class HereOrdersController {
     private HereOrdersService hereOrdersService;
 
     @ApiOperation(value = "订单添加")
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    @ResponseBody
+    @PostMapping(value = "/create")
     public ResultObject<HereOrdersDTO> crate(@Validated @RequestBody HereOrders dto) {
         logger.info("订单添加控制层========>start");
         boolean success = hereOrdersService.addHereOrder(dto);
@@ -46,13 +44,19 @@ public class HereOrdersController {
     }
 
     @ApiOperation("根据用户查询订单")
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    @ResponseBody
+    @GetMapping(value = "/list")
     public ResultObject<CommonPage<HereOrders>> list(@RequestParam(value = "userId", required = false) Integer userId,
                                     @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                     @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
         Page<HereOrders> hereOrdersList = hereOrdersService.list(userId, pageSize, pageNum);
         return ResultObject.success(CommonPage.restPage(hereOrdersList));
+    }
+
+    @ApiOperation("完成订单")
+    @PostMapping("/complete/{id}")
+    public ResultObject<Void> completeOrder(@PathVariable("id") Long orderId) {
+        hereOrdersService.completeOrder(orderId);
+        return ResultObject.success(null);
     }
 
 }

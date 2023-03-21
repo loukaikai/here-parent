@@ -1,10 +1,8 @@
 package com.here.modules.order.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.here.common.api.ResultObject;
-import com.here.modules.order.dto.HereOrdersDTO;
-import com.here.modules.order.entity.HereOrders;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.here.modules.order.entity.HereOrders;
 
 /**
  * <p>
@@ -19,5 +17,11 @@ public interface HereOrdersService extends IService<HereOrders> {
     boolean addHereOrder(HereOrders dto);
 
     Page<HereOrders> list(Integer userId, Integer pageSize, Integer pageNum);
+
+    /**
+     * 完成订单
+     * @param orderId 订单ID
+     */
+    void completeOrder(Long orderId);
 
 }
