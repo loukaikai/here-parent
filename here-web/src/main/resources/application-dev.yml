@@ -26,6 +26,8 @@ wechart:
   login_url: https://api.weixin.qq.com/sns/jscode2session
   acctoken_url:  https://api.weixin.qq.com/cgi-bin/token
   redirect_uri:
+  jsapi: https://api.mch.weixin.qq.com/v3/pay/transactions/jsapi # JSAPI下单
+
 douyin:
   client_key: 123
   client_secret: 123

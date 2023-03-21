@@ -2,7 +2,7 @@ spring:
   application:
     name: here-web
   profiles:
-    active: dev
+    active: prod
 #  main:
 #    allow-circular-references: true
   mvc:
@@ -32,12 +32,21 @@ redis:
   expire:
     common: 86400 # 24小时
 
+openai:
+  apikey: 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
+  isproxy: 1 # 0-走代理；1-不走代理
+
+proxy:
+  host: 127.0.0.1
+  port: 11
+
 secure:
   ignored:
     urls: #安全路径白名单
       - /swagger-ui/
       - /swagger-resources/**
       - /**/v2/api-docs
+      - /doc.html
       - /**/*.html
       - /**/*.js
       - /**/*.css

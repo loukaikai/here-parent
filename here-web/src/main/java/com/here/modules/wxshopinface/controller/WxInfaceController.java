@@ -1,3 +1,4 @@
+/*
 package com.here.modules.wxshopinface.controller;
 
 import com.alibaba.fastjson.JSONObject;
@@ -5,6 +6,9 @@ import com.here.common.aop.Log;
 import com.here.common.api.ResultObject;
 import com.here.common.utils.RestTemplateUtil;
 import com.here.modules.oauth.dto.PhoneInfo;
+import com.here.modules.wxshopinface.dto.JsApiDTO;
+import com.here.modules.wxshopinface.dto.ParamDTO;
+import com.here.modules.wxshopinface.dto.PrepayIdDTO;
 import com.here.modules.wxshopinface.service.WxInfaceService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,18 +16,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 
 import static com.here.modules.wxshopinface.contanst.WxInfaceConsta.accessTokn;
 import static com.here.modules.wxshopinface.contanst.WxInfaceConsta.getCoupon;
 
+*/
 /**
  * @author loukaikai
  * @version 1.0.0
  * @ClassName WxInfaceController.java
  * @Description TODO
  * @createTime 2023年01月05日 16:47:00
- */
+ *//*
+
 @RestController
 @RequestMapping("/wxinface")
 @Tag(name = "WxInfaceController",description = "微信接口管理")
@@ -40,9 +47,11 @@ public class WxInfaceController {
     @Autowired
     private WxInfaceService wxInfaceService;
 
-    /**
+    */
+/**
      * 获取token
-     */
+     *//*
+
     @PostMapping(value = "getWxToken")
     @ResponseBody
     @Log
@@ -75,8 +84,16 @@ public class WxInfaceController {
 
     @ApiOperation("JSAPI下单")
     @PostMapping("/getlist")
-    public ResultObject<Void> jsApi() {
+    public ResultObject<PrepayIdDTO> jsApi(@RequestBody @Valid JsApiDTO jsApiDTO) {
         //getCoupon
-        return ResultObject.success(null);
+        return wxInfaceService.jsApi(jsApiDTO);
+    }
+
+    @ApiOperation("小程序调起API")
+    @GetMapping("/getparam")
+    public ResultObject<ParamDTO> getParamDTO(@RequestParam("prepayId") String prepayId) {
+        //getCoupon
+        return wxInfaceService.getParamDTO(prepayId);
     }
 }
+*/
