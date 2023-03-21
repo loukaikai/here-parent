@@ -9,6 +9,7 @@ import com.aliyun.oss.model.PutObjectRequest;
 import com.aliyun.oss.model.PutObjectResult;
 import com.here.common.exception.BizException;
 import com.here.modules.oss.service.OssService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ import java.util.Objects;
 /**
  * @author Lzk
  */
+@Slf4j
 @Service
 public class OssServiceImpl implements OssService {
 
@@ -56,6 +58,7 @@ public class OssServiceImpl implements OssService {
             putObjectRequest.setProcess("true");
             PutObjectResult putObjectResult = client.putObject(putObjectRequest);
             if (200 == putObjectResult.getResponse().getStatusCode()) {
+                log.info("OSS:Upload file " + objectName + " successfully");
                 return true;
             }
         } catch (FileNotFoundException e) {
